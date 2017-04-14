@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Panic Button</string>
+    <string name="app_slogan">Stay safe.</string>
+    <string name="loading">Loading&#8230;</string>
+
+    <!-- OfflineActivity -->
+    <string name="seems_like_ur_mobile_data_and_wifi_are_turned_off_please_turn_it_on">Seems like ur mobile data and wifi are turned off. Please turn it on.</string>
+    <string name="offline_image">Offline Image</string>
+    <string name="u_r_currently_offline">U r currently Offline!</string>
+    <string name="check_now">Check Now</string>
+    <string name="there_is_some_problem_with_your_internet_connection_try_again_later">There is some problem with your internet connection. Try again later.</string>
+
+    <!-- SignInActivity -->
+    <string name="sign_in_with_google">Sign In With Google</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="password">Password</string>
+    <string name="sign_in_cancelled">Sign in cancelled.</string>
+
+    <!-- temporary strings -->
+    <string name="welcome_sample_name">Welcome, Sample Name!</string>
+    <string name="user_profile">User Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="providers_used">Providers used:</string>
+    <string name="none">none</string>
+    <string name="no_email">No email</string>
+    <string name="no_display_name">No display name</string>
+    <string name="welcome">Welcome</string>
+</resources>
