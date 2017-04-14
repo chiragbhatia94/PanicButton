@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/PanicTheme">
+        <!-- activities -->
         <activity android:name=".activities.SplashScreenActivity">
+            <!-- launcher activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,6 +24,9 @@
         </activity>
         <activity android:name=".activities.OfflineActivity">
         </activity>
+
+        <!-- services -->
+        <service android:name=".services.EmergencyButtonService"/>
     </application>
 
 </manifest>

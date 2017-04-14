@@ -11,6 +11,7 @@
     <string name="there_is_some_problem_with_your_internet_connection_try_again_later">There is some problem with your internet connection. Try again later.</string>
 
     <!-- SignInActivity -->
+    <string name="welcome">Welcome</string>
     <string name="sign_in_with_google">Sign In With Google</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
@@ -26,5 +27,10 @@
     <string name="none">none</string>
     <string name="no_email">No email</string>
     <string name="no_display_name">No display name</string>
-    <string name="welcome">Welcome</string>
+    <string name="panic_button_activated">Panic button activated.</string>
+    <string name="panic_button_stopped">Panic button stopped.</string>
+
+    <!-- ImageView Descriptions -->
+    <string name="emergency_button">Emergency Button</string>
+    <string name="cancel">Cancel</string>
 </resources>
