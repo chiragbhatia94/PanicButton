@@ -5,18 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
+    <!--<android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        style="@style/PanicTheme.CustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:tabMode="fixed"/>-->
 
-        <include
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_200">
+        <!--<include
             layout="@layout/first_aid_layout"/>
 
         <include
             layout="@layout/profile_layout"/>
 
         <include
-            layout="@layout/emergency_contacts_layout"/>
+            layout="@layout/emergency_contacts_layout"/>-->
     </android.support.v4.view.ViewPager>
 
     <ImageView

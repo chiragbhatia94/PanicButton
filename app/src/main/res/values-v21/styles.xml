@@ -1,0 +1,70 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="PanicTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="PanicTheme.ButtomNavigation">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.VerySmall" parent="android:style/TextAppearance.Small">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Custom TabLayout for the viewpager -->
+    <!-- Avoiding using tablayout because of the support issue as only 23.0.0 are able to use it -->
+    <style name="PanicTheme.CustomTabLayout" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <!--<item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>-->
+        <!--<item name="tabBackground">@color/colorBackground</item>-->
+        <!--<item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
+        <item name="tabSelectedTextColor">@color/textColorPrimary</item>-->
+    </style>
+
+    <style name="PanicTheme.ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
+        <item name="actionMenuTextColor">@color/textColorSecondary</item>
+        <!-- Tints the input fields like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Applies to views in their normal state. -->
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <!-- Applies to views in their activated state (i.e checked or switches) -->
+        <item name="colorControlActivated">@color/black</item>
+        <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+
+        <!-- Enable these below if you want clicking icons to trigger a ripple effect -->
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="PanicTheme.ProfileCollapsingToolbar" parent="PanicTheme.ToolbarTheme">
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <item name="android:textColorPrimary">@color/logoColor</item>
+    </style>
+
+    <!-- This configures the styles for the title within the Toolbar  -->
+    <style name="PanicTheme.ToolbarToolbarTheme.TitleText"
+           parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">21sp</item>
+        <!--<item name="android:textStyle">italic</item>-->
+    </style>
+
+    <!-- Splash screen theme. -->
+    <style name="PanicTheme.FullScreen" parent="@style/PanicTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+</resources>
