@@ -12,6 +12,6 @@
         android:src="@drawable/emergency_button"
         android:visibility="visible"/>
 
-    <!--<include
-        layout="@layout/floating_layout_expanded"/>-->
+    <include
+        layout="@layout/floating_layout_expanded"/>
 </RelativeLayout>

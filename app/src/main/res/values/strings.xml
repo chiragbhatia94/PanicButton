@@ -33,4 +33,9 @@
     <!-- ImageView Descriptions -->
     <string name="emergency_button">Emergency Button</string>
     <string name="cancel">Cancel</string>
+
+    <!-- layout title -->
+    <string name="first_aid">First Aid</string>
+    <string name="profile">Profile</string>
+    <string name="ice_contacts">Emergency Contacts</string>
 </resources>
