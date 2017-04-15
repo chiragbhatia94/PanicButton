@@ -1,8 +1,12 @@
 package com.urhive.panicbutton.services;
 
 import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -29,8 +33,11 @@ import me.relex.circleindicator.CircleIndicator;
 public class EmergencyButtonService extends Service {
 
     private static final String TAG = "EmergencyButtonService";
+
+    private static LockScreenStateReceiver mLockScreenStateReceiver;
     private static WindowManager windowManager;
     private static WindowManager.LayoutParams params;
+    private IntentFilter filter;
     private boolean mHasDoubleClicked = false;
     private long lastPressTime;
     private Boolean _enable = true;
@@ -83,7 +90,7 @@ public class EmergencyButtonService extends Service {
         params.y = 100;
 
         // for testing
-        windowManager.addView(view, params);
+        // windowManager.addView(view, params);
         setUnexpanded();
 
         Toast.makeText(EmergencyButtonService.this, R.string.panic_button_activated, Toast
@@ -108,10 +115,10 @@ public class EmergencyButtonService extends Service {
                             // If double click...
                             if (pressTime - lastPressTime <= 300) {
                                 // my code here
-                                //unregisterReceiver(mLockScreenStateReceiver);
-                                /*ServiceEmergencyButton.this.stopSelf();
+                                unregisterReceiver(mLockScreenStateReceiver);
+                                EmergencyButtonService.this.stopSelf();
 
-                                createNotification();*/
+                                //createNotification();
                                 mHasDoubleClicked = true;
                             } else {
                                 // If not double click....
@@ -150,6 +157,12 @@ public class EmergencyButtonService extends Service {
                 }
             }
         });
+
+        mLockScreenStateReceiver = new LockScreenStateReceiver();
+        filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_USER_PRESENT);
+
+        registerReceiver(mLockScreenStateReceiver, filter);
     }
 
     @Override
@@ -172,5 +185,23 @@ public class EmergencyButtonService extends Service {
         floatingIV.setVisibility(View.GONE);
         _expanded = true;
         Log.i(TAG, "onClick: this is shown mode");
+    }
+
+    public class LockScreenStateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            KeyguardManager mKeyGuardManager = (KeyguardManager) getSystemService(Context
+                    .KEYGUARD_SERVICE);
+            if (mKeyGuardManager.inKeyguardRestrictedInputMode()) {
+                Log.d(TAG, "onReceive: " + "locked");
+                windowManager.addView(view, params);
+            } else {
+                Log.d(TAG, "onReceive: " + "unlocked");
+                if (view != null) {
+                    setUnexpanded();
+                    windowManager.removeView(view);
+                }
+            }
+        }
     }
 }
