@@ -1,6 +1,5 @@
 package com.urhive.panicbutton.services;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.Service;
@@ -8,12 +7,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +24,7 @@ import android.widget.Toast;
 
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.adapters.ViewPagerAdapter;
+import com.urhive.panicbutton.helpers.UIHelper;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -86,24 +83,7 @@ public class EmergencyButtonService extends Service {
         sosCallBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
-
-                intent.setData(Uri.parse("tel:" + "9893604590"));
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest
-                        .permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[]
-                    // permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the
-                    // documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-
-                getApplication().startActivity(intent);
+                UIHelper.makeCall(getApplicationContext(), "9893604590");
                 setUnexpanded();
             }
         });

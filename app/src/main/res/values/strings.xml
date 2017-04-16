@@ -31,7 +31,8 @@
     <string name="panic_button_stopped">Panic button stopped.</string>
     <string name="sample_name">Lorem Ipsum</string>\
     <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat nunc sem. Ut ornare est eget ultricies posuere. Nulla ut rhoncus purus. Phasellus id fringilla turpis. Aliquam quis eros orci. Vivamus lacus ligula, rutrum semper nulla in, aliquam semper quam. Proin id sem sed turpis dapibus aliquet bibendum vitae ipsum. Sed ultricies efficitur cursus. Aenean at nibh scelerisque erat consequat consequat eget eleifend dui.</string>
-    \
+    <string name="sample_ice_contact">Sample ICE Contact</string>
+
     <string name="sample_age_gender">22, Male</string>
     <string name="sample_address">10, Larkana Nagar,\nManik Bagh Road,\nIndore M.P. India</string>
     <string name="sample_blood_group">O+</string>
@@ -42,6 +43,7 @@
     <string name="home_icon">Home Icon</string>
     <string name="blood_icon">Blood Icon</string>
     <string name="medical_notes_icon">Medicals Notes Icon</string>
+    <string name="contact_dp">Contact Display Picture</string>
 
     <!-- layout title -->
     <string name="first_aid">First Aid</string>

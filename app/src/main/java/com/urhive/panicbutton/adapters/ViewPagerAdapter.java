@@ -3,20 +3,20 @@ package com.urhive.panicbutton.adapters;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.models.IceContact;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.google.android.gms.internal.zzt.TAG;
 
 /**
  * Created by Chirag Bhatia on 15-04-2017.
@@ -47,13 +47,20 @@ public class ViewPagerAdapter extends PagerAdapter {
                 Glide.with(context).load(mFirebaseUser.getPhotoUrl()).fitCenter().into(iv);
             }
         } else if (position == 2) {
-            Button btn = (Button) item_view.findViewById(R.id.tempBtn);
+            // ICE Contact Page
+            /*Button btn = (Button) item_view.findViewById(R.id.tempBtn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.i(TAG, "onClick: hogya mera kaam");
                 }
-            });
+            });*/
+            ListView listView = (ListView) item_view.findViewById(R.id.contactListView);
+            ArrayList<IceContact> contactsList = new ArrayList<>();
+            contactsList.add(new IceContact(null, "Chirag Bhatia", "9893604590"));
+            contactsList.add(new IceContact(null, "Mahesh Bhatia", "9827562730"));
+            contactsList.add(new IceContact(null, "Yash Bhatia", "9039563022"));
+            listView.setAdapter(new ContactsAdapter(context, contactsList));
         }
         return item_view;
     }
