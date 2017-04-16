@@ -1,5 +1,6 @@
 package com.urhive.panicbutton.services;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.Service;
@@ -7,9 +8,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -46,6 +51,7 @@ public class EmergencyButtonService extends Service {
     private ViewPager viewPager;
     private RelativeLayout mainRL;
     private ImageView floatingIV, cancelIV;
+    private Button sosCallBtn;
 
     @Nullable
     @Override
@@ -64,6 +70,7 @@ public class EmergencyButtonService extends Service {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mainRL = (RelativeLayout) view.findViewById(R.id.mainRL);
         cancelIV = (ImageView) view.findViewById(R.id.cancel_button);
+        sosCallBtn = (Button) view.findViewById(R.id.sosCallBtn);
 
         cancelIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +82,31 @@ public class EmergencyButtonService extends Service {
         CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         viewPager.setAdapter(new ViewPagerAdapter(this, view));
         indicator.setViewPager(viewPager);
+
+        sosCallBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+
+                intent.setData(Uri.parse("tel:" + "9893604590"));
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest
+                        .permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[]
+                    // permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the
+                    // documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+
+                getApplication().startActivity(intent);
+                setUnexpanded();
+            }
+        });
 
         /*TabLayout tablayout = (TabLayout) view.findViewById(R.id.tablayout);
         tablayout.setupWithViewPager(viewPager);*/

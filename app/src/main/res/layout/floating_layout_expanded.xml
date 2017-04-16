@@ -31,6 +31,7 @@
         android:layout_alignParentBottom="true"/>
 
     <Button
+        android:id="@+id/sosCallBtn"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
