@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainRL"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey_100">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize">
         <!--<include
             layout="@layout/first_aid_layout"/>
 
@@ -19,19 +21,24 @@
             layout="@layout/emergency_contacts_layout"/>-->
     </android.support.v4.view.ViewPager>
 
-    <ImageView
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/cancel"
-        android:padding="4dp"
-        android:src="@drawable/ic_cancel"/>
+    <include
+        layout="@layout/toolbar_popup"/>
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/idp_round_button_background"
+        android:drawableLeft="@drawable/ic_call_white_24dp"
+        android:drawableStart="@drawable/ic_call_white_24dp"
+        android:padding="13.5dp"/>
 </RelativeLayout>

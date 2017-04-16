@@ -90,7 +90,8 @@ public class EmergencyButtonService extends Service {
         params.y = 100;
 
         // for testing
-        // windowManager.addView(view, params);
+        windowManager.addView(view, params);
+        view.setVisibility(View.GONE);
         setUnexpanded();
 
         Toast.makeText(EmergencyButtonService.this, R.string.panic_button_activated, Toast
@@ -115,8 +116,6 @@ public class EmergencyButtonService extends Service {
                             // If double click...
                             if (pressTime - lastPressTime <= 300) {
                                 // my code here
-                                unregisterReceiver(mLockScreenStateReceiver);
-                                EmergencyButtonService.this.stopSelf();
 
                                 //createNotification();
                                 mHasDoubleClicked = true;
@@ -175,6 +174,8 @@ public class EmergencyButtonService extends Service {
         // set hide mode now
         _expanded = false;
         mainRL.setVisibility(View.GONE);
+        // adding for testing
+        viewPager.setCurrentItem(1);
         floatingIV.setVisibility(View.VISIBLE);
         Log.i(TAG, "onClick: this is hidden mode");
     }
@@ -187,6 +188,11 @@ public class EmergencyButtonService extends Service {
         Log.i(TAG, "onClick: this is shown mode");
     }
 
+    private void CloseService() {
+        unregisterReceiver(mLockScreenStateReceiver);
+        EmergencyButtonService.this.stopSelf();
+    }
+
     public class LockScreenStateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -194,12 +200,14 @@ public class EmergencyButtonService extends Service {
                     .KEYGUARD_SERVICE);
             if (mKeyGuardManager.inKeyguardRestrictedInputMode()) {
                 Log.d(TAG, "onReceive: " + "locked");
-                windowManager.addView(view, params);
+                // windowManager.addView(view, params);
+                view.setVisibility(View.VISIBLE);
             } else {
                 Log.d(TAG, "onReceive: " + "unlocked");
                 if (view != null) {
                     setUnexpanded();
-                    windowManager.removeView(view);
+                    // windowManager.removeView(view);
+                    view.setVisibility(View.GONE);
                 }
             }
         }

@@ -9,7 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.urhive.panicbutton.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.google.android.gms.internal.zzt.TAG;
 
@@ -19,11 +24,13 @@ import static com.google.android.gms.internal.zzt.TAG;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
+    private Context context;
     private LayoutInflater inflater;
     private View item_view;
     private View view;
 
     public ViewPagerAdapter(Context context, View view) {
+        this.context = context;
         inflater = LayoutInflater.from(context);
         this.view = view;
     }
@@ -32,7 +39,14 @@ public class ViewPagerAdapter extends PagerAdapter {
         ModelObject modelObject = ModelObject.values()[position];
         item_view = (ViewGroup) inflater.inflate(modelObject.getLayoutResId(), collection, false);
         collection.addView(item_view);
-        if (position == 2) {
+        FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (position == 1) {
+            CircleImageView iv = (CircleImageView) item_view.findViewById(R.id.profileIV);
+            assert mFirebaseUser != null;
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                Glide.with(context).load(mFirebaseUser.getPhotoUrl()).fitCenter().into(iv);
+            }
+        } else if (position == 2) {
             Button btn = (Button) item_view.findViewById(R.id.tempBtn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
