@@ -26,15 +26,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
-import com.urhive.panicbutton.models.EmergencyDetails;
+import com.urhive.panicbutton.models.Emergency;
 import com.urhive.panicbutton.models.Step;
 import com.urhive.panicbutton.services.EmergencyButtonService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -244,14 +246,12 @@ public class MainActivity extends AppCompatBase {
 
         Map<String, Integer> related_diseases = new HashMap<>();
         related_diseases.put("amputation", 20);
+        List<Step> steps = new ArrayList<>();
+        steps.add(new Step(Step.PHOTO, "url"));
+        steps.add(new Step("url", "text"));
+        steps.add(new Step(Step.TEXT, "text"));
 
-        Map<String, Step> steps = new HashMap<>();
-        steps.put("1", new Step(Step.PHOTO, "url"));
-        steps.put("2", new Step("url", "text"));
-        steps.put("3", new Step(Step.TEXT, "text"));
-
-        EmergencyDetails amputation = new EmergencyDetails(bodypart, keyword, photo,
-                related_diseases, steps);
+        Emergency amputation = new Emergency(bodypart, keyword, photo, related_diseases, steps);
 
         mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation").setValue
                 (amputation.toMap());
@@ -262,10 +262,7 @@ public class MainActivity extends AppCompatBase {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Object wow = dataSnapshot.getValue();
-                Log.i(TAG, "onDataChange: " + wow.toString());
-                /*EmergencyDetails ed = dataSnapshot.getValue(EmergencyDetails.class);
-                Log.i(TAG, "onDataChange: " + ed.toString());*/
+                Emergency ed = dataSnapshot.getValue(Emergency.class);
             }
 
             @Override

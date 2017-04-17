@@ -1,7 +1,5 @@
 package com.urhive.panicbutton.models;
 
-import android.util.Log;
-
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
@@ -16,8 +14,8 @@ public class Step {
     public static final int PHOTO = 1;
     @Exclude
     public static final int TEXT = 2;
-    String photo;
-    String text;
+    private String photo;
+    private String text;
 
     public Step() {
 
@@ -36,19 +34,29 @@ public class Step {
         this.text = text;
     }
 
+    // getter and setters
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     // Map for JSON
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("photo", photo);
         result.put("text", text);
-        Log.i("Step", "toMap: " + result.toString());
         return result;
     }
-
-    /*@Override
-    public String toString() {
-        // return "Step{" + "photo='" + photo + '\'' + ", text='" + text + '\'' + '}';
-        return "Step{" + "photo='" + photo + '\'' + ", text='" + text + '\'' + '}';
-    }*/
 }

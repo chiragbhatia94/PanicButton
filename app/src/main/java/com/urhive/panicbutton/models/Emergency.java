@@ -1,28 +1,36 @@
 package com.urhive.panicbutton.models;
 
-import com.google.firebase.database.Exclude;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Chirag Bhatia on 17-04-2017.
  */
 
-public class EmergencyDetails {
+public class Emergency {
     Map<String, Boolean> bodypart;
     Map<String, Integer> keyword;
     String photo;
     Map<String, Integer> related_diseases;
-    Map<String, Step> steps;
+    List<Step> steps;
 
     // Constructors
-    public EmergencyDetails() {
+    public Emergency() {
 
     }
 
-    public EmergencyDetails(Map<String, Boolean> bodypart, Map<String, Integer> keyword, String
-            photo, Map<String, Integer> related_diseases, Map<String, Step> steps) {
+    // copy constructor
+    public Emergency(Emergency emergency) {
+        this.bodypart = emergency.getBodypart();
+        this.keyword = emergency.getKeyword();
+        this.photo = emergency.getPhoto();
+        this.related_diseases = emergency.getRelated_diseases();
+        this.steps = emergency.getSteps();
+    }
+
+    public Emergency(Map<String, Boolean> bodypart, Map<String, Integer> keyword, String photo,
+                     Map<String, Integer> related_diseases, List<Step> steps) {
         this.bodypart = bodypart;
         this.keyword = keyword;
         this.photo = photo;
@@ -63,16 +71,19 @@ public class EmergencyDetails {
         this.related_diseases = related_diseases;
     }
 
-    public Map<String, Step> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(Map<String, Step> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
+    public void copyAllFrom(Emergency emergency) {
+
+    }
+
     // Map for JSON
-    @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("bodypart", bodypart);
