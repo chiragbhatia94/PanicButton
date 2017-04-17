@@ -6,5 +6,6 @@ package com.urhive.panicbutton.helpers;
 
 public class DBHelper {
     public static final String EMERGENCY = "emergency";
+    public static final String KEYWORDS = "keywords";
     private static final String TAG = "DBHelper";
 }

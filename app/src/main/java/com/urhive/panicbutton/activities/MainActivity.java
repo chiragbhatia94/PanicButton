@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.Emergency;
+import com.urhive.panicbutton.models.Keywords;
 import com.urhive.panicbutton.models.Step;
 import com.urhive.panicbutton.services.EmergencyButtonService;
 
@@ -238,16 +239,24 @@ public class MainActivity extends AppCompatBase {
         Map<String, Boolean> bodypart = new HashMap<>();
         bodypart.put("abdomen", true);
         bodypart.put("chest", true);
+        bodypart.put("hands", true);
+        bodypart.put("head", true);
+        bodypart.put("leg", true);
+        bodypart.put("neck", true);
 
         Map<String, Integer> keyword = new HashMap<>();
         keyword.put("abrasion", 12);
+        keyword.put("cut", 12);
 
         String photo = "url";
 
         Map<String, Integer> related_diseases = new HashMap<>();
         related_diseases.put("amputation", 20);
+
         List<Step> steps = new ArrayList<>();
-        steps.add(new Step(Step.PHOTO, "url"));
+        steps.add(new Step("https://firebasestorage.googleapis.com/v0/b/panicbutton-467cb.appspot" +
+                ".com/o/step%20photo%2FBleeding%2FBleedingStep1.PNG?alt=media&token=bfc15a71-b76e" +
+                "-482a-9b79-a03e2d9509c4", "Apply direct pressure on cut or wound with clear"));
         steps.add(new Step("url", "text"));
         steps.add(new Step(Step.TEXT, "text"));
 
@@ -255,6 +264,12 @@ public class MainActivity extends AppCompatBase {
 
         mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation").setValue
                 (amputation.toMap());
+
+        Map<String, Integer> related_diseases2 = new HashMap<>();
+        related_diseases.put("amputation", 25);
+        related_diseases.put("bleeding", 50);
+        Keywords keywords = new Keywords(12, related_diseases2);
+        mFirebaseDatabaseReference.child(DBHelper.KEYWORDS).child("abaration").setValue(keywords.toMap());
     }
 
     public void tempButton2(View view) {
@@ -263,6 +278,20 @@ public class MainActivity extends AppCompatBase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Emergency ed = dataSnapshot.getValue(Emergency.class);
+            }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+        mFirebaseDatabaseReference.child(DBHelper.KEYWORDS).child("abaration")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                /*Keywords keywords = dataSnapshot.getValue(Keywords.class);*/
+                Object obj = dataSnapshot.getValue();
+                Log.i(TAG, "onDataChange: " + obj.toString());
             }
 
             @Override
