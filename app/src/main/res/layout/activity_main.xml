@@ -26,6 +26,7 @@
         android:text="@string/user_profile"/>
 
     <LinearLayout
+        android:id="@+id/profileLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/userProfile"
@@ -86,11 +87,36 @@
         android:text="Stop Service"
         android:textColor="#FFF"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileLayout"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="contactPicker"
+            android:text="Contact Picker Button"/>
+
+        <include
+            layout="@layout/contact_list_view_item"/>
+    </LinearLayout>
+
     <Button
+        android:id="@+id/tempBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/stopService"
-        android:layout_centerHorizontal="true"
         android:onClick="tempButton"
         android:text="Temporary Button"/>
+
+    <Button
+        android:id="@+id/tempBtn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tempBtn"
+        android:onClick="tempButton2"
+        android:text="Temporary Button 2"/>
 </RelativeLayout>

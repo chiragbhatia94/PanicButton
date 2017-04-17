@@ -38,12 +38,6 @@ public class AppCompatBase extends AppCompatActivity {
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle
-            persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
-
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html) {
         Spanned result;
@@ -57,6 +51,12 @@ public class AppCompatBase extends AppCompatActivity {
 
     public static void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle
+            persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
     }
 
     /*
@@ -144,6 +144,7 @@ public class AppCompatBase extends AppCompatActivity {
         };
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
 
         //getWindow().setBackgroundDrawableResource(R.drawable.nontransparentbackground);
     }

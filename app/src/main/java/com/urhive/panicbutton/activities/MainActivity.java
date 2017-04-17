@@ -1,7 +1,14 @@
 package com.urhive.panicbutton.activities;
 
+import android.content.ContentUris;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,15 +21,29 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.helpers.DBHelper;
+import com.urhive.panicbutton.models.EmergencyDetails;
+import com.urhive.panicbutton.models.Step;
 import com.urhive.panicbutton.services.EmergencyButtonService;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatBase {
 
     private static final String TAG = "MainActivity";
 
+    private static final int RESULT_PICK_CONTACT = 850;
     private TextView signinStatusTV;
     private ImageView profilePictureIV;
     private TextView emailTV, displayNameTV, enabledProvidersTV;
@@ -99,5 +120,158 @@ public class MainActivity extends AppCompatBase {
         stopService(intent);
 
         Toast.makeText(this, R.string.panic_button_stopped, Toast.LENGTH_SHORT).show();
+    }
+
+    public void contactPicker(View view) {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract
+                .CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check whether the result is ok
+        if (resultCode == RESULT_OK) {
+            // Check for the request code, we might be usign multiple startActivityForReslut
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    contactPicked(data);
+                    break;
+            }
+        } else {
+            Log.e("MainActivity", "Failed to pick contact");
+        }
+    }
+
+    /**
+     * Query the Uri and read contact details. Handle the picked contact data.
+     *
+     * @param data
+     */
+    private void contactPicked(Intent data) {
+        Cursor cursor = null;
+        try {
+            String phoneNo = null;
+            String name = null;
+            // getData() method will have the Content Uri of the selected contact
+            Uri uri = data.getData();
+            //Query the content uri
+            cursor = getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            // column index of the phone number
+            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            // column index of the contact name
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone
+                    .DISPLAY_NAME);
+
+            //int photoIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.)
+            phoneNo = cursor.getString(phoneIndex);
+            name = cursor.getString(nameIndex);
+
+            TextView textView1 = (TextView) findViewById(R.id.contactName);
+            TextView textView2 = (TextView) findViewById(R.id.contactNumberTV);
+
+            // for contact DP
+            // not working
+            int idIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
+            /*Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
+                    idIndex);
+            Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
+                    .CONTENT_DIRECTORY);
+            InputStream is = ContactsContract.Contacts.openContactPhotoInputStream
+            (getContentResolver(), contactUri, false);
+            Bitmap bmp = BitmapFactory.decodeStream(is);*/
+            Bitmap bmp = BitmapFactory.decodeStream(openPhoto(idIndex));
+            CircleImageView circleImageView = (CircleImageView) findViewById(R.id.contactDPIV);
+            //circleImageView.setImageBitmap(bmp);
+
+            // Set the value to the textviews
+            textView1.setText(name);
+            textView2.setText(phoneNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // for photo thumbnail
+    public InputStream openPhoto(long contactId) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
+                contactId);
+        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
+                .CONTENT_DIRECTORY);
+        Cursor cursor = getContentResolver().query(photoUri, new String[]{ContactsContract
+                .Contacts.Photo.PHOTO}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        try {
+            if (cursor.moveToFirst()) {
+                byte[] data = cursor.getBlob(0);
+                if (data != null) {
+                    return new ByteArrayInputStream(data);
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+        return null;
+    }
+
+    // for larger photo
+    public InputStream openDisplayPhoto(long contactId) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
+                contactId);
+        Uri displayPhotoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
+                .DISPLAY_PHOTO);
+        try {
+            AssetFileDescriptor fd = getContentResolver().openAssetFileDescriptor
+                    (displayPhotoUri, "r");
+            return fd.createInputStream();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public void tempButton(View view) {
+        Map<String, Boolean> bodypart = new HashMap<>();
+        bodypart.put("abdomen", true);
+        bodypart.put("chest", true);
+
+        Map<String, Integer> keyword = new HashMap<>();
+        keyword.put("abrasion", 12);
+
+        String photo = "url";
+
+        Map<String, Integer> related_diseases = new HashMap<>();
+        related_diseases.put("amputation", 20);
+
+        Map<String, Step> steps = new HashMap<>();
+        steps.put("1", new Step(Step.PHOTO, "url"));
+        steps.put("2", new Step("url", "text"));
+        steps.put("3", new Step(Step.TEXT, "text"));
+
+        EmergencyDetails amputation = new EmergencyDetails(bodypart, keyword, photo,
+                related_diseases, steps);
+
+        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation").setValue
+                (amputation.toMap());
+    }
+
+    public void tempButton2(View view) {
+        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Object wow = dataSnapshot.getValue();
+                Log.i(TAG, "onDataChange: " + wow.toString());
+                /*EmergencyDetails ed = dataSnapshot.getValue(EmergencyDetails.class);
+                Log.i(TAG, "onDataChange: " + ed.toString());*/
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
