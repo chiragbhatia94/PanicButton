@@ -130,7 +130,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     }
 
-    public static class EmergencyHolder extends RecyclerView.ViewHolder {
+    private static class EmergencyHolder extends RecyclerView.ViewHolder {
         private final TextView nameTV;
         private final ImageView imageIV;
         private Context context;
