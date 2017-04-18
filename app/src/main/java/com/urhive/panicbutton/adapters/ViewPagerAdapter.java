@@ -3,6 +3,7 @@ package com.urhive.panicbutton.adapters;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,6 +70,7 @@ public class ViewPagerAdapter extends PagerAdapter {
                     viewHolder.setContext(context);
                     viewHolder.setName(model.getName());
                     viewHolder.setImage(model.getPhoto());
+                    viewHolder.setClickListener(model);
                 }
             };
 
@@ -130,12 +132,14 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
 
     private static class EmergencyHolder extends RecyclerView.ViewHolder {
+        private final CardView cardView;
         private final TextView nameTV;
         private final ImageView imageIV;
         private Context context;
 
         public EmergencyHolder(View itemView) {
             super(itemView);
+            this.cardView = (CardView) itemView.findViewById(R.id.cardView);
             this.nameTV = (TextView) itemView.findViewById(tv);
             this.imageIV = (ImageView) itemView.findViewById(R.id.iv);
         }
@@ -150,6 +154,15 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         public void setContext(Context context) {
             this.context = context;
+        }
+
+        public void setClickListener(Emergency emergency) {
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // here you have to display the list of steps
+                }
+            });
         }
     }
 }
