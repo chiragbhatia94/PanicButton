@@ -21,9 +21,6 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.Emergency;
@@ -186,7 +183,7 @@ public class MainActivity extends AppCompatBase {
             Bitmap bmp = BitmapFactory.decodeStream(is);*/
             Bitmap bmp = BitmapFactory.decodeStream(openPhoto(idIndex));
             CircleImageView circleImageView = (CircleImageView) findViewById(R.id.contactDPIV);
-            //circleImageView.setImageBitmap(bmp);
+            circleImageView.setImageBitmap(bmp);
 
             // Set the value to the textviews
             textView1.setText(name);
@@ -236,6 +233,8 @@ public class MainActivity extends AppCompatBase {
     }
 
     public void tempButton(View view) {
+        String name = "Heavy bleeding";
+        String doctor_category = "Orthopediac";
         Map<String, Boolean> bodypart = new HashMap<>();
         bodypart.put("abdomen", true);
         bodypart.put("chest", true);
@@ -248,32 +247,40 @@ public class MainActivity extends AppCompatBase {
         keyword.put("abrasion", 12);
         keyword.put("cut", 12);
 
-        String photo = "url";
+        String photo = "https://firebasestorage.googleapis.com/v0/b/panicbutton-467cb.appspot" +
+                ".com/o/step%20photo%2FBleeding%2FBleedingStep1.PNG?alt=media&token=bfc15a71-b76e" +
+                "" + "" + "" + "" + "-482a-9b79-a03e2d9509c4";
 
         Map<String, Integer> related_diseases = new HashMap<>();
         related_diseases.put("amputation", 20);
 
         List<Step> steps = new ArrayList<>();
-        steps.add(new Step("https://firebasestorage.googleapis.com/v0/b/panicbutton-467cb.appspot" +
-                ".com/o/step%20photo%2FBleeding%2FBleedingStep1.PNG?alt=media&token=bfc15a71-b76e" +
-                "-482a-9b79-a03e2d9509c4", "Apply direct pressure on cut or wound with clear"));
+        steps.add(new Step("https://firebasestorage.googleapis.com/v0/b/panicbutton-467cb" + "" +
+                ".appspot.com/o/step%20photo%2FBleeding%2FBleedingStep1.PNG?alt=media&token" +
+                "=bfc15a71-b76e" + "-482a-9b79-a03e2d9509c4", "Apply direct pressure on cut or "
+                + "wound with clear"));
         steps.add(new Step("url", "text"));
         steps.add(new Step(Step.TEXT, "text"));
+        steps.add(new Step(Step.PHOTO, "url"));
 
-        Emergency amputation = new Emergency(bodypart, keyword, photo, related_diseases, steps);
+        Emergency amputation = new Emergency(name, doctor_category, bodypart, keyword, photo,
+                related_diseases, steps);
 
-        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation").setValue
-                (amputation.toMap());
+        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child(name).setValue(amputation
+                .toMap());
 
+        String keywordName = "cut";
+        int keywordRating = 12;
         Map<String, Integer> related_diseases2 = new HashMap<>();
-        related_diseases.put("amputation", 25);
-        related_diseases.put("bleeding", 50);
-        Keywords keywords = new Keywords(12, related_diseases2);
-        mFirebaseDatabaseReference.child(DBHelper.KEYWORDS).child("abaration").setValue(keywords.toMap());
+        related_diseases2.put("amputation", 25);
+        related_diseases2.put("bleeding", 50);
+        Keywords keywords = new Keywords(keywordRating, related_diseases2);
+        mFirebaseDatabaseReference.child(DBHelper.KEYWORDS).child(keywordName).setValue(keywords
+                .toMap());
     }
 
     public void tempButton2(View view) {
-        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation")
+        /*mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child("amputation")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -289,7 +296,7 @@ public class MainActivity extends AppCompatBase {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                /*Keywords keywords = dataSnapshot.getValue(Keywords.class);*/
+                *//*Keywords keywords = dataSnapshot.getValue(Keywords.class);*//*
                 Object obj = dataSnapshot.getValue();
                 Log.i(TAG, "onDataChange: " + obj.toString());
             }
@@ -298,6 +305,8 @@ public class MainActivity extends AppCompatBase {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
+
+        mFirebaseDatabaseReference.child(DBHelper.EMERGENCY);
     }
 }

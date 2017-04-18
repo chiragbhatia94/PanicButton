@@ -9,6 +9,8 @@ import java.util.Map;
  */
 
 public class Emergency {
+    String name;
+    String doctor_category;
     Map<String, Boolean> bodypart;
     Map<String, Integer> keyword;
     String photo;
@@ -22,6 +24,8 @@ public class Emergency {
 
     // copy constructor
     public Emergency(Emergency emergency) {
+        this.name = emergency.getName();
+        this.doctor_category = emergency.getDoctor_category();
         this.bodypart = emergency.getBodypart();
         this.keyword = emergency.getKeyword();
         this.photo = emergency.getPhoto();
@@ -29,8 +33,11 @@ public class Emergency {
         this.steps = emergency.getSteps();
     }
 
-    public Emergency(Map<String, Boolean> bodypart, Map<String, Integer> keyword, String photo,
-                     Map<String, Integer> related_diseases, List<Step> steps) {
+    public Emergency(String name, String doctor_category, Map<String, Boolean> bodypart,
+                     Map<String, Integer> keyword, String photo, Map<String, Integer>
+                             related_diseases, List<Step> steps) {
+        this.name = name;
+        this.doctor_category = doctor_category;
         this.bodypart = bodypart;
         this.keyword = keyword;
         this.photo = photo;
@@ -39,6 +46,22 @@ public class Emergency {
     }
 
     // Getter & Setter
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDoctor_category() {
+        return doctor_category;
+    }
+
+    public void setDoctor_category(String doctor_category) {
+        this.doctor_category = doctor_category;
+    }
+
     public Map<String, Boolean> getBodypart() {
         return bodypart;
     }
@@ -86,6 +109,8 @@ public class Emergency {
     // Map for JSON
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("doctor_category", doctor_category);
         result.put("bodypart", bodypart);
         result.put("keyword", keyword);
         result.put("photo", photo);

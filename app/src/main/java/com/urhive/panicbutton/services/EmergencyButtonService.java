@@ -103,7 +103,7 @@ public class EmergencyButtonService extends Service {
 
         // for testing
         windowManager.addView(view, params);
-        view.setVisibility(View.GONE);
+        //view.setVisibility(View.GONE);
         setUnexpanded();
 
         Toast.makeText(EmergencyButtonService.this, R.string.panic_button_activated, Toast
@@ -213,13 +213,13 @@ public class EmergencyButtonService extends Service {
             if (mKeyGuardManager.inKeyguardRestrictedInputMode()) {
                 Log.d(TAG, "onReceive: " + "locked");
                 // windowManager.addView(view, params);
-                view.setVisibility(View.VISIBLE);
+                //view.setVisibility(View.VISIBLE);
             } else {
                 Log.d(TAG, "onReceive: " + "unlocked");
                 if (view != null) {
                     setUnexpanded();
                     // windowManager.removeView(view);
-                    view.setVisibility(View.GONE);
+                    //view.setVisibility(View.GONE);
                 }
             }
         }
