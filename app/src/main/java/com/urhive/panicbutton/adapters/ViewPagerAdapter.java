@@ -66,10 +66,9 @@ public class ViewPagerAdapter extends PagerAdapter {
                 @Override
                 protected void populateViewHolder(EmergencyHolder viewHolder, Emergency model,
                                                   int position) {
-                    Emergency emergency = model;
                     viewHolder.setContext(context);
-                    viewHolder.setName(emergency.getName());
-                    viewHolder.setImage(emergency.getPhoto());
+                    viewHolder.setName(model.getName());
+                    viewHolder.setImage(model.getPhoto());
                 }
             };
 
