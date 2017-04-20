@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/stepNoTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="@string/_1"
+        android:textSize="36sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/stepTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sample_small_text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+        <ImageView
+            android:id="@+id/stepIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/step_picture"
+            android:padding="8dp"/>
+    </LinearLayout>
+</LinearLayout>

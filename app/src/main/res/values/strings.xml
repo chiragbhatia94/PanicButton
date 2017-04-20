@@ -31,6 +31,7 @@
     <string name="panic_button_stopped">Panic button stopped.</string>
     <string name="sample_name">Lorem Ipsum</string>\
     <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat nunc sem. Ut ornare est eget ultricies posuere. Nulla ut rhoncus purus. Phasellus id fringilla turpis. Aliquam quis eros orci. Vivamus lacus ligula, rutrum semper nulla in, aliquam semper quam. Proin id sem sed turpis dapibus aliquet bibendum vitae ipsum. Sed ultricies efficitur cursus. Aenean at nibh scelerisque erat consequat consequat eget eleifend dui.</string>
+    <string name="sample_small_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="sample_ice_contact">Sample ICE Contact</string>
 
     <string name="sample_age_gender">22, Male</string>
@@ -57,5 +58,9 @@
     <string name="blood_group">Blood Group</string>
     <string name="medical_notes">Medical Notes</string>
     <string name="unknown">Unknown</string>
+    <string name="_1">1</string>
+    <string name="step_picture">Step Picture</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
 
 </resources>

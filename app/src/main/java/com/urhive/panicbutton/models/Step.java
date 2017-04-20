@@ -59,4 +59,9 @@ public class Step {
         result.put("text", text);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Step{" + "photo='" + photo + '\'' + ", text='" + text + '\'' + '}';
+    }
 }

@@ -5,20 +5,27 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.Emergency;
@@ -28,14 +35,13 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.urhive.panicbutton.R.id.tv;
-
 /**
  * Created by Chirag Bhatia on 15-04-2017.
  */
 
 public class ViewPagerAdapter extends PagerAdapter {
 
+    private static final String TAG = "ViewPagerAdaper";
     private Context context;
     private LayoutInflater inflater;
     private View item_view;
@@ -53,10 +59,27 @@ public class ViewPagerAdapter extends PagerAdapter {
         collection.addView(item_view);
         FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (position == 0) {
-            RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
-            rv.setHasFixedSize(false);
+            final RecyclerView emergencyRecyclerView = (RecyclerView) view.findViewById(R.id
+                    .recyclerView);
+
+            final RelativeLayout detailedEmergencyView = (RelativeLayout) view.findViewById(R.id
+                    .detailedEmergencyView);
+            final RecyclerView stepsRecyclerView = (RecyclerView) view.findViewById(R.id.stepsRV);
+            final Button backBtn = (Button) view.findViewById(R.id.backBtn);
+            detailedEmergencyView.setClickable(true);
+            backBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    detailedEmergencyView.setVisibility(View.GONE);
+                }
+            });
+
+            // making detailed view invisible
+            detailedEmergencyView.setVisibility(View.GONE);
+
+            emergencyRecyclerView.setHasFixedSize(false);
             // rv.setLayoutManager(new LinearLayoutManager(context));
-            rv.setLayoutManager(new GridLayoutManager(context, 2));
+            emergencyRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
 
             DatabaseReference rootref = FirebaseDatabase.getInstance().getReference().child
                     (DBHelper.EMERGENCY);
@@ -70,16 +93,19 @@ public class ViewPagerAdapter extends PagerAdapter {
                     viewHolder.setContext(context);
                     viewHolder.setName(model.getName());
                     viewHolder.setImage(model.getPhoto());
-                    viewHolder.setClickListener(model);
+                    Log.i(TAG, "populateViewHolder: " + model.getPhoto());
+                    viewHolder.setClickListener(model, emergencyRecyclerView,
+                            detailedEmergencyView, backBtn, stepsRecyclerView);
                 }
             };
 
-            rv.setAdapter(mAdapter);
+            emergencyRecyclerView.setAdapter(mAdapter);
         } else if (position == 1) {
             CircleImageView iv = (CircleImageView) item_view.findViewById(R.id.profileIV);
             assert mFirebaseUser != null;
             if (mFirebaseUser.getPhotoUrl() != null) {
-                Glide.with(context).load(mFirebaseUser.getPhotoUrl()).fitCenter().into(iv);
+                Glide.with(context).load(mFirebaseUser.getPhotoUrl()).crossFade().fitCenter()
+                        .into(iv);
             }
         } else if (position == 2) {
             // ICE Contact Page
@@ -136,11 +162,13 @@ public class ViewPagerAdapter extends PagerAdapter {
         private final TextView nameTV;
         private final ImageView imageIV;
         private Context context;
+        private StorageReference mRef;
 
         public EmergencyHolder(View itemView) {
             super(itemView);
+            this.mRef = FirebaseStorage.getInstance().getReference();
             this.cardView = (CardView) itemView.findViewById(R.id.cardView);
-            this.nameTV = (TextView) itemView.findViewById(tv);
+            this.nameTV = (TextView) itemView.findViewById(R.id.tv);
             this.imageIV = (ImageView) itemView.findViewById(R.id.iv);
         }
 
@@ -149,18 +177,27 @@ public class ViewPagerAdapter extends PagerAdapter {
         }
 
         public void setImage(String url) {
-            Glide.with(context).load(url).fitCenter().into(imageIV);
+            Log.e(TAG, "setImage: " + url);
+            Glide.with(context).using(new FirebaseImageLoader()).load(mRef.child(url)).fitCenter
+                    ().into(imageIV);
         }
 
         public void setContext(Context context) {
             this.context = context;
         }
 
-        public void setClickListener(Emergency emergency) {
+        public void setClickListener(final Emergency emergency, RecyclerView
+                emergencyRecyclerView, final RelativeLayout detailEmergencyView, TextView backTV,
+                                     final RecyclerView stepsRecyclerView) {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // here you have to display the list of steps
+                    detailEmergencyView.setVisibility(View.VISIBLE);
+                    StepsRecyclerViewAdapter mAdapter = new StepsRecyclerViewAdapter(context,
+                            emergency.getSteps());
+                    stepsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    stepsRecyclerView.setAdapter(mAdapter);
                 }
             });
         }

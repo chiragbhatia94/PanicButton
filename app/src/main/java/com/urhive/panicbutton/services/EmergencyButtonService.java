@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.urhive.panicbutton.R;
@@ -47,7 +48,8 @@ public class EmergencyButtonService extends Service {
     private View view;
     private ViewPager viewPager;
     private RelativeLayout mainRL;
-    private ImageView floatingIV, cancelIV;
+    private ImageView floatingIV;
+    private TextView cancelTV;
     private Button sosCallBtn;
 
     @Nullable
@@ -66,10 +68,10 @@ public class EmergencyButtonService extends Service {
         floatingIV = (ImageView) view.findViewById(R.id.floating_button);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mainRL = (RelativeLayout) view.findViewById(R.id.mainRL);
-        cancelIV = (ImageView) view.findViewById(R.id.cancel_button);
+        cancelTV = (TextView) view.findViewById(R.id.cancel_button);
         sosCallBtn = (Button) view.findViewById(R.id.sosCallBtn);
 
-        cancelIV.setOnClickListener(new View.OnClickListener() {
+        cancelTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setUnexpanded();
