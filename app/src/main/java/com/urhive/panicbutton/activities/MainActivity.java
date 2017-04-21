@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,13 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.Emergency;
@@ -249,9 +247,10 @@ public class MainActivity extends AppCompatBase {
     public void tempButton2(View view) {
         /*mFirebaseDatabaseReference.child(DBHelper.EMERGENCY);*/
 
-        StorageReference mRef = FirebaseStorage.getInstance().getReference().child("bleeding");
+        /*StorageReference mRef = FirebaseStorage.getInstance().getReference().child("bleeding");
         Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mRef).into
-                (profilePictureIV);
+                (profilePictureIV);*/
+        turnGPSOn();
     }
 
     public void unresponsiveAndNotBreathing() {
@@ -613,5 +612,33 @@ public class MainActivity extends AppCompatBase {
 
         mFirebaseDatabaseReference.child(DBHelper.EMERGENCY).child(name).setValue(amputation
                 .toMap());
+    }
+
+    private void turnGPSOn() {
+        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure
+                .LOCATION_PROVIDERS_ALLOWED);
+
+        if (!provider.contains("gps")) { //if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget" +
+                    ".SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            sendBroadcast(poke);
+        }
+    }
+
+    private void turnGPSOff() {
+        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure
+                .LOCATION_PROVIDERS_ALLOWED);
+
+        if (provider.contains("gps")) { //if gps is enabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget" +
+                    ".SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            sendBroadcast(poke);
+        }
     }
 }

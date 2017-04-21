@@ -96,8 +96,7 @@ public class EmergencyButtonService extends Service {
         params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 // WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR, WindowManager.LayoutParams
-                .FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.START;
         params.x = 0;
@@ -149,6 +148,9 @@ public class EmergencyButtonService extends Service {
                             paramsF.x = initialX + (int) (event.getRawX() - initialTouchX);
                             paramsF.y = initialY + (int) (event.getRawY() - initialTouchY);
                             windowManager.updateViewLayout(view, paramsF);
+                            break;
+                        case MotionEvent.ACTION_OUTSIDE:
+                            Log.i(TAG, "onTouch: you touched outside!");
                             break;
                     }
                     return false;
