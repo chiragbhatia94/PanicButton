@@ -3,10 +3,10 @@ package com.urhive.panicbutton.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,6 @@ import com.google.firebase.storage.StorageReference;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.Emergency;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +64,7 @@ public class FirstAidFragment extends FragmentBase {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_first_aid, container, false);
+        final View view = inflater.inflate(R.layout.fragment_first_aid, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.stepsRV);
         DatabaseReference emergencyRef = FirebaseDatabase.getInstance().getReference().child
                 (DBHelper.EMERGENCY);
@@ -73,13 +72,23 @@ public class FirstAidFragment extends FragmentBase {
                 FirebaseRecyclerAdapter<Emergency, EmergencyHolder>(Emergency.class, R.layout
                         .emergency_list_view_item, EmergencyHolder.class, emergencyRef) {
             @Override
-            protected void populateViewHolder(EmergencyHolder viewHolder, Emergency model, int
-                    position) {
+            protected void populateViewHolder(EmergencyHolder viewHolder, final Emergency model,
+                                              int position) {
                 viewHolder.setContext(getContext());
                 viewHolder.setName(model.getName());
                 viewHolder.setImage(model.getPhoto());
-                Log.i(TAG, "populateViewHolder: " + model.getPhoto());
-                viewHolder.setClickListener(model);
+                viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirstAidStepsFragment firstAidStepsFragment = FirstAidStepsFragment
+                                .newInstance(model.getName());
+                        FragmentTransaction transaction = getChildFragmentManager()
+                                .beginTransaction();
+                        transaction.addToBackStack(null);
+                        transaction.replace(R.id.fragment_mainLayout, firstAidStepsFragment)
+                                .commit();
+                    }
+                });
             }
         };
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -88,9 +97,9 @@ public class FirstAidFragment extends FragmentBase {
     }
 
     private static class EmergencyHolder extends RecyclerView.ViewHolder {
-        private final CardView cardView;
         private final TextView nameTV;
         private final ImageView imageIV;
+        CardView cardView;
         private Context context;
         private StorageReference mRef;
 
@@ -107,37 +116,14 @@ public class FirstAidFragment extends FragmentBase {
         }
 
         public void setImage(String url) {
-            Log.e(TAG, "setImage: " + url);
-            Glide.with(context).using(new FirebaseImageLoader()).load(mRef.child(url)).fitCenter
-                    ().into(imageIV);
+            if (url != null && !url.isEmpty()) {
+                Glide.with(context).using(new FirebaseImageLoader()).load(mRef.child(url))
+                        .fitCenter().into(imageIV);
+            }
         }
 
         public void setContext(Context context) {
             this.context = context;
         }
-
-        public void setClickListener(final Emergency emergency) {
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
-        /*public void setClickListener(final Emergency emergency, RecyclerView
-                emergencyRecyclerView, final RelativeLayout detailEmergencyView, TextView backTV,
-                                     final RecyclerView stepsRecyclerView) {
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // here you have to display the list of steps
-                    detailEmergencyView.setVisibility(View.VISIBLE);
-                    StepsRecyclerViewAdapter mAdapter = new StepsRecyclerViewAdapter(context,
-                            emergency.getSteps());
-                    stepsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    stepsRecyclerView.setAdapter(mAdapter);
-                }
-            });
-        }*/
     }
 }

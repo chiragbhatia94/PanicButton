@@ -89,9 +89,9 @@ public class LockScreenActivity extends AppCompatBase {
             // container Fragment or its associates couldn't handle the back pressed task
             // delegating the task to super class
             super.onBackPressed();
-        } else {
+        } /*else {
             // carousel handled the back pressed task
             // do not call super
-        }
+        }*/
     }
 }
