@@ -218,7 +218,7 @@ public class EmergencyFloatingService extends Service {
             KeyguardManager mKeyGuardManager = (KeyguardManager) getSystemService(Context
                     .KEYGUARD_SERVICE);
             if (mKeyGuardManager.inKeyguardRestrictedInputMode()) {
-                Log.d(TAG, "onReceive: locked");
+                Log.d(TAG, "onReceive: " + "locked");
                 // windowManager.addView(view, params);
                 //view.setVisibility(View.VISIBLE);
             } else {

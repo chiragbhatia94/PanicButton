@@ -7,6 +7,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PanicTheme.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/logoColorPressed</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="PanicTheme.AppBarOverlay" parent="Base.ThemeOverlay.AppCompat.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/logoColorPressed</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="PanicTheme.ButtomNavigation">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/black</item>
@@ -26,6 +40,26 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Applies to views in their normal state. -->
         <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <!-- Applies to views in their activated state (i.e checked or switches) -->
+        <item name="colorControlActivated">@color/black</item>
+        <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+
+        <!-- Enable these below if you want clicking icons to trigger a ripple effect -->
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="PanicTheme.PopupOverlay"
+           parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
+        <item name="actionMenuTextColor">@color/white</item>
+        <!-- Tints the input fields like checkboxes and text fields -->
+        <item name="colorAccent">@color/white</item>
+        <!-- Applies to views in their normal state. -->
+        <item name="colorControlNormal">@color/white</item>
         <!-- Applies to views in their activated state (i.e checked or switches) -->
         <item name="colorControlActivated">@color/black</item>
         <!-- Applied to framework control highlights (i.e ripples or list selectors) -->

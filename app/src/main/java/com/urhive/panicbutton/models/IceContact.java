@@ -44,4 +44,10 @@ public class IceContact {
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+
+    @Override
+    public String toString() {
+        return "IceContact{" + "imageURI='" + imageURI + '\'' + ", contactName='" + contactName +
+                '\'' + ", contactNumber='" + contactNumber + '\'' + '}';
+    }
 }
