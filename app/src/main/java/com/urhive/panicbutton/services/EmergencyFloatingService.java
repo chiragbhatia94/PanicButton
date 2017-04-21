@@ -33,9 +33,9 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by Chirag Bhatia on 14-04-2017.
  */
 
-public class EmergencyButtonService extends Service {
+public class EmergencyFloatingService extends Service {
 
-    private static final String TAG = "EmergencyButtonService";
+    private static final String TAG = "EmergencyFloatService";
 
     private static LockScreenStateReceiver mLockScreenStateReceiver;
     private static WindowManager windowManager;
@@ -96,7 +96,9 @@ public class EmergencyButtonService extends Service {
         params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 // WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, PixelFormat.TRANSLUCENT);
+                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR, WindowManager.LayoutParams
+                .FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.START;
         params.x = 0;
@@ -107,7 +109,7 @@ public class EmergencyButtonService extends Service {
         //view.setVisibility(View.GONE);
         setUnexpanded();
 
-        Toast.makeText(EmergencyButtonService.this, R.string.panic_button_activated, Toast
+        Toast.makeText(EmergencyFloatingService.this, R.string.panic_button_activated, Toast
                 .LENGTH_SHORT).show();
 
         try {
@@ -150,7 +152,8 @@ public class EmergencyButtonService extends Service {
                             windowManager.updateViewLayout(view, paramsF);
                             break;
                         case MotionEvent.ACTION_OUTSIDE:
-                            Log.i(TAG, "onTouch: you touched outside!");
+                            //Log.i(TAG, "onTouch: you touched outside!");
+                            setUnexpanded();
                             break;
                     }
                     return false;
@@ -206,7 +209,7 @@ public class EmergencyButtonService extends Service {
 
     private void CloseService() {
         unregisterReceiver(mLockScreenStateReceiver);
-        EmergencyButtonService.this.stopSelf();
+        EmergencyFloatingService.this.stopSelf();
     }
 
     public class LockScreenStateReceiver extends BroadcastReceiver {
@@ -215,11 +218,11 @@ public class EmergencyButtonService extends Service {
             KeyguardManager mKeyGuardManager = (KeyguardManager) getSystemService(Context
                     .KEYGUARD_SERVICE);
             if (mKeyGuardManager.inKeyguardRestrictedInputMode()) {
-                Log.d(TAG, "onReceive: " + "locked");
+                Log.d(TAG, "onReceive: locked");
                 // windowManager.addView(view, params);
                 //view.setVisibility(View.VISIBLE);
             } else {
-                Log.d(TAG, "onReceive: " + "unlocked");
+                Log.d(TAG, "onReceive: unlocked");
                 if (view != null) {
                     setUnexpanded();
                     // windowManager.removeView(view);
