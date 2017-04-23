@@ -230,6 +230,7 @@ public class EmergencyActivityService extends Service {
 
     private void closeService() {
         // unregisterReceiver(mLockScreenStateReceiver);
+        if (floatingWidget != null) windowManager.removeView(floatingWidget);
         EmergencyActivityService.this.stopSelf();
     }
 
