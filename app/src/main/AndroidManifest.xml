@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.urhive.panicbutton">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -15,18 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/PanicTheme">
-        <!--<meta-data
-            android:name="DATABASE"
-            android:value="panicdb.db"/>
+
         <meta-data
-            android:name="VERSION"
-            android:value="2"/>
-        <meta-data
-            android:name="QUERY_LOG"
-            android:value="true"/>
-        <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.urhive.panicbutton"/>-->
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
 
         <!-- activities -->
         <activity android:name=".activities.SplashScreenActivity">

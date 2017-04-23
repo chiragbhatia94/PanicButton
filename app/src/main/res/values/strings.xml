@@ -68,5 +68,11 @@
     <string name="emegency_image">Emegency Image</string>
     <string name="lorem_ipsum">Lorem Ipsum</string>
     <string name="navigate_home">Navigate Home</string>
-
+    <string name="your_current_location">Your Current Location:</string>
+    <string name="location_not_emabled">Location not enabled!</string>
+    <string name="please_enable_gps">Please enable GPS!</string>
+    <string name="lat">Lat:</string>
+    <string name="lng">Lng:</string>
+    <string name="last_known_location_not_available_with_the_system">Last known location not available with the system!</string>
+    <string name="address_not_found">Address not found!</string>
 </resources>
