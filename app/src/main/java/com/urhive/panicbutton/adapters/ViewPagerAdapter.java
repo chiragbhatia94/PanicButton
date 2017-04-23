@@ -111,9 +111,9 @@ public class ViewPagerAdapter extends PagerAdapter {
             // ICE Contact Page
             ListView listView = (ListView) item_view.findViewById(R.id.contactListView);
             ArrayList<IceContact> contactsList = new ArrayList<>();
-            contactsList.add(new IceContact(null, "Chirag Bhatia", "9893604590"));
-            contactsList.add(new IceContact(null, "Mahesh Bhatia", "9827562730"));
-            contactsList.add(new IceContact(null, "Yash Bhatia", "9039563022"));
+            contactsList.add(new IceContact(1, null, "Chirag Bhatia", "9893604590"));
+            contactsList.add(new IceContact(2, null, "Mahesh Bhatia", "9827562730"));
+            contactsList.add(new IceContact(3, null, "Yash Bhatia", "9039563022"));
             listView.setAdapter(new ContactsAdapter(context, contactsList));
         }
         return item_view;

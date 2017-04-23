@@ -28,7 +28,6 @@ import com.urhive.panicbutton.models.Step;
  * create an instance of this fragment.
  */
 public class FirstAidStepsFragment extends FragmentBase {
-
     private static final String TAG = "FirstAidFragment";
 
     private static final String EMERGENCY_NAME = "emergencyName";
@@ -85,7 +84,7 @@ public class FirstAidStepsFragment extends FragmentBase {
         return view;
     }
 
-    private static class StepsHolder extends RecyclerView.ViewHolder {
+    public static class StepsHolder extends RecyclerView.ViewHolder {
         private final TextView stepNumberTV;
         private final TextView stepTV;
         private final ImageView stepIV;

@@ -13,8 +13,9 @@ public class PanicButtonApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // SugarContext.init(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
+        FirebaseDatabase.getInstance().getReference().keepSynced(false);
         Stetho.initializeWithDefaults(this);
     }
 }

@@ -1,11 +1,7 @@
 package com.urhive.panicbutton.activities;
 
-import android.content.ContentUris;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -23,20 +19,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
+import com.urhive.panicbutton.models.IceContact;
 import com.urhive.panicbutton.services.EmergencyActivityService;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Iterator;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatBase {
 
     private static final String TAG = "MainActivity";
 
-    private static final int RESULT_PICK_CONTACT = 850;
+    private static final int REQUEST_CODE_PICK_CONTACTS = 11;
+
     private TextView signinStatusTV;
     private ImageView profilePictureIV;
     private TextView emailTV, displayNameTV, enabledProvidersTV;
@@ -118,7 +112,7 @@ public class MainActivity extends AppCompatBase {
     public void contactPicker(View view) {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract
                 .CommonDataKinds.Phone.CONTENT_URI);
-        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+        startActivityForResult(contactPickerIntent, REQUEST_CODE_PICK_CONTACTS);
     }
 
     @Override
@@ -127,8 +121,9 @@ public class MainActivity extends AppCompatBase {
         if (resultCode == RESULT_OK) {
             // Check for the request code, we might be usign multiple startActivityForReslut
             switch (requestCode) {
-                case RESULT_PICK_CONTACT:
-                    contactPicked(data);
+                case REQUEST_CODE_PICK_CONTACTS:
+                    Uri uriContact = data.getData();
+                    setContactsInfo(uriContact);
                     break;
             }
         } else {
@@ -139,90 +134,44 @@ public class MainActivity extends AppCompatBase {
     /**
      * Query the Uri and read contact details. Handle the picked contact data.
      *
-     * @param data
+     * @param uri
      */
-    private void contactPicked(Intent data) {
-        Cursor cursor = null;
-        try {
-            String phoneNo = null;
-            String name = null;
-            // getData() method will have the Content Uri of the selected contact
-            Uri uri = data.getData();
-            //Query the content uri
-            cursor = getContentResolver().query(uri, null, null, null, null);
-            cursor.moveToFirst();
-            // column index of the phone number
-            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            // column index of the contact name
-            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone
-                    .DISPLAY_NAME);
+    private void setContactsInfo(Uri uri) {
+        Cursor cursor;
+        //Query the content uri
+        cursor = getContentResolver().query(uri, null, null, null, null);
+        assert cursor != null;
+        cursor.moveToFirst();
+        // column index of the phone number
+        int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+        // column index of the contact name
+        int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+        int contactIdIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone
+                .RAW_CONTACT_ID);
+        /*String[] columns = cursor.getColumnNames();
+        for (String column : columns) {
+            Log.i(TAG, "setContactsInfo: " + column);
+        }*/
+        Log.i(TAG, "setContactsInfo: " + Arrays.toString(cursor.getColumnNames()));
+        String photoUri = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds
+                .Phone.PHOTO_URI));
+        Log.i(TAG, "setContactsInfo: Thumbnail Uri " + photoUri);
+        Log.i(TAG, "setContactsInfo: ContactId " + cursor.getInt(contactIdIndex));
+        String phoneNo = cursor.getString(phoneIndex);
+        String name = cursor.getString(nameIndex);
 
-            //int photoIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.)
-            phoneNo = cursor.getString(phoneIndex);
-            name = cursor.getString(nameIndex);
+        IceContact contact = new IceContact(cursor.getInt(contactIdIndex), photoUri, cursor
+                .getString(nameIndex), cursor.getString(phoneIndex));
+        Log.i(TAG, "setContactsInfo: Selected contact is " + contact.toString());
 
-            TextView textView1 = (TextView) findViewById(R.id.contactName);
-            TextView textView2 = (TextView) findViewById(R.id.contactNumberTV);
+        TextView textView1 = (TextView) findViewById(R.id.contactName);
+        TextView textView2 = (TextView) findViewById(R.id.contactNumberTV);
+        ImageView contactDPIV = (ImageView) findViewById(R.id.contactDPIV);
 
-            // for contact DP
-            // not working
-            int idIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
-            /*Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
-                    idIndex);
-            Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
-                    .CONTENT_DIRECTORY);
-            InputStream is = ContactsContract.Contacts.openContactPhotoInputStream
-            (getContentResolver(), contactUri, false);
-            Bitmap bmp = BitmapFactory.decodeStream(is);*/
-            Bitmap bmp = BitmapFactory.decodeStream(openPhoto(idIndex));
-            CircleImageView circleImageView = (CircleImageView) findViewById(R.id.contactDPIV);
-            circleImageView.setImageBitmap(bmp);
-
-            // Set the value to the textviews
-            textView1.setText(name);
-            textView2.setText(phoneNo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // for photo thumbnail
-    public InputStream openPhoto(long contactId) {
-        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
-                contactId);
-        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
-                .CONTENT_DIRECTORY);
-        Cursor cursor = getContentResolver().query(photoUri, new String[]{ContactsContract
-                .Contacts.Photo.PHOTO}, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        try {
-            if (cursor.moveToFirst()) {
-                byte[] data = cursor.getBlob(0);
-                if (data != null) {
-                    return new ByteArrayInputStream(data);
-                }
-            }
-        } finally {
-            cursor.close();
-        }
-        return null;
-    }
-
-    // for larger photo
-    public InputStream openDisplayPhoto(long contactId) {
-        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
-                contactId);
-        Uri displayPhotoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo
-                .DISPLAY_PHOTO);
-        try {
-            AssetFileDescriptor fd = getContentResolver().openAssetFileDescriptor
-                    (displayPhotoUri, "r");
-            return fd.createInputStream();
-        } catch (IOException e) {
-            return null;
-        }
+        // Set the value to the textviews
+        textView1.setText(name);
+        textView2.setText(phoneNo);
+        if (photoUri != null) contactDPIV.setImageURI(Uri.parse(photoUri));
     }
 
     public void tempButton(View view) {
@@ -230,12 +179,6 @@ public class MainActivity extends AppCompatBase {
     }
 
     public void tempButton2(View view) {
-        /*mFirebaseDatabaseReference.child(DBHelper.EMERGENCY);*/
-
-        /*StorageReference mRef = FirebaseStorage.getInstance().getReference().child("bleeding");
-        Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mRef).into
-                (profilePictureIV);*/
-
         Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
         startActivity(intent);
     }

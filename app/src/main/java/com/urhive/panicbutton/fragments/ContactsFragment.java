@@ -59,9 +59,9 @@ public class ContactsFragment extends FragmentBase {
         recyclerView = (RecyclerView) view.findViewById(R.id.contactsRecyclerView);
 
         ArrayList<IceContact> contactsList = new ArrayList<>();
-        contactsList.add(new IceContact(null, "Chirag Bhatia", "9893604590"));
-        contactsList.add(new IceContact(null, "Mahesh Bhatia", "9827562730"));
-        contactsList.add(new IceContact(null, "Yash Bhatia", "9039563022"));
+        contactsList.add(new IceContact(1, null, "Chirag Bhatia", "9893604590"));
+        contactsList.add(new IceContact(2, null, "Mahesh Bhatia", "9827562730"));
+        contactsList.add(new IceContact(3, null, "Yash Bhatia", "9039563022"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ContactsRecyclerViewAdapter(getContext(), contactsList));

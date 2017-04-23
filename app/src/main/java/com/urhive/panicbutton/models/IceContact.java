@@ -6,21 +6,31 @@ package com.urhive.panicbutton.models;
 
 public class IceContact {
 
-    public String imageURI;
-    public String contactName;
-    public String contactNumber;
+    private long id;
+    private String imageURI;
+    private String contactName;
+    private String contactNumber;
 
     // constructors
     public IceContact() {
     }
 
-    public IceContact(String imageURI, String contactName, String contactNumber) {
+    public IceContact(long id, String imageURI, String contactName, String contactNumber) {
+        this.id = id;
         this.imageURI = imageURI;
         this.contactName = contactName;
         this.contactNumber = contactNumber;
     }
 
     // getter and setters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getImageURI() {
         return imageURI;
     }
@@ -47,7 +57,7 @@ public class IceContact {
 
     @Override
     public String toString() {
-        return "IceContact{" + "imageURI='" + imageURI + '\'' + ", contactName='" + contactName +
-                '\'' + ", contactNumber='" + contactNumber + '\'' + '}';
+        return "IceContact{" + "id=" + id + ", imageURI='" + imageURI + '\'' + ", contactName='"
+                + contactName + '\'' + ", contactNumber='" + contactNumber + '\'' + '}';
     }
 }

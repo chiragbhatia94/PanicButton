@@ -96,7 +96,8 @@ public class FirstAidFragment extends FragmentBase {
         return view;
     }
 
-    private static class EmergencyHolder extends RecyclerView.ViewHolder {
+    // this has to be public else we wont be able to access it
+    public static class EmergencyHolder extends RecyclerView.ViewHolder {
         private final TextView nameTV;
         private final ImageView imageIV;
         CardView cardView;

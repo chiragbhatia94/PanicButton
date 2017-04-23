@@ -21,6 +21,7 @@ public class DBHelper {
     public static final String EMERGENCY = "emergency";
     public static final String KEYWORDS = "keywords";
     public static final String STEPS = "steps";
+    public static final String CONTACTS = "contacts";
 
     private static final String TAG = "DBHelper";
     private static DatabaseReference mFirebaseDatabaseReference;

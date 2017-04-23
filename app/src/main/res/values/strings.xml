@@ -67,5 +67,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="emegency_image">Emegency Image</string>
     <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="navigate_home">Navigate Home</string>
 
 </resources>

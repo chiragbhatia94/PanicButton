@@ -5,8 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.urhive.panicbutton.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -48,6 +54,19 @@ public class InfoFragment extends FragmentBase {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_info, container, false);
+
+        CircleImageView iv = (CircleImageView) view.findViewById(R.id.profileIV);
+        FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert mFirebaseUser != null;
+        if (mFirebaseUser.getPhotoUrl() != null) {
+            Glide.with(getContext()).load(mFirebaseUser.getPhotoUrl()).crossFade().fitCenter()
+                    .into(iv);
+        }
+
+        ((TextView) view.findViewById(R.id.nameTV)).setText(mFirebaseUser.getDisplayName());
+
+        return view;
     }
 }
