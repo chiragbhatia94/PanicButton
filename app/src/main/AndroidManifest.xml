@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- <uses-permission android:name="android.permission.CALL_PRIVILEGED"/> -->
     <application
@@ -18,7 +19,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/PanicTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/pb_google_api_key"/>
@@ -47,6 +47,17 @@
         <activity
             android:name=".activities.LockScreenActivity"
             android:theme="@style/PanicTheme.DarkActionBar">
+        </activity>
+
+        <service
+            android:name=".services.HardwareTriggerService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings">
         </activity>
     </application>
 

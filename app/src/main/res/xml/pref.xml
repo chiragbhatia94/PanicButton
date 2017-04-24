@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<PreferenceCategory android:title="@string/notification_preferences">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxVibrate"
+            android:title="@string/vibrate"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxSound"
+            android:title="@string/sound"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxLED"
+            android:title="@string/LED"/>
+    </PreferenceCategory>-->
+
+    <PreferenceCategory android:title="@string/first_aid">
+        <Preference android:title="@string/instructions"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:key="privacyPolicyBtn"
+            android:title="@string/privacyPolicy"/>
+        <Preference
+            android:key="tosBtn"
+            android:title="@string/terms_of_service"/>
+        <Preference
+            android:key="openSourceLibraryBtn"
+            android:title="@string/openSourceLibraries"/>
+        <Preference
+            android:key="developersBtn"
+            android:title="@string/developers"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/account">
+        <Preference
+            android:key="linkedAccountsBtn"
+            android:title="@string/linkedAccounts"/>
+        <Preference
+            android:key="signOutBtn"
+            android:title="@string/sign_out"/>
+    </PreferenceCategory>
+</PreferenceScreen>

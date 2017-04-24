@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.Place_JSON;
+import com.urhive.panicbutton.helpers.UIHelper;
 
 import org.json.JSONObject;
 
@@ -175,18 +176,24 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
             double lat = location.getLatitude();
             latlngTV.setText(getString(R.string.lat) + " " + lat + " " + "&" + " " + getString(R
                     .string.lng) + " " + lng);
-            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-            List<Address> list = geocoder.getFromLocation(lat, lng, 1);
-            if (list != null) {
-                try {
-                    String address = list.get(0).getAddressLine(0) + " " + list.get(0)
-                            .getAddressLine(1) + "\n" + list.get(0).getAddressLine(2) + "\n" +
-                            list.get(0).getAddressLine(3);
-                    addressTV.setText(address);
-                    return;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    // do not do anything
+            if (!UIHelper.isOffline(getContext())) {
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> list = geocoder.getFromLocation(lat, lng, 1);
+                if (list != null) {
+                    try {
+                        String address = list.get(0).getAddressLine(0) + " " + list.get(0)
+                                .getAddressLine(1) + "\n" + list.get(0).getAddressLine(2) + "\n"
+                                + list.get(0).getAddressLine(3);
+                        addressTV.setText(address);
+                        return;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        // do not do anything
+                    }
                 }
+            } else {
+                String prevAddr = addressTV.getText().toString();
+                if (prevAddr.isEmpty())
+                    addressTV.setText(getString(R.string.u_r_currently_offline));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -341,7 +348,7 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
         double mLatitude = lastKnownLatLng.latitude;
         double mLongitude = lastKnownLatLng.longitude;
 
-        StringBuilder sb = new StringBuilder("https://maps.googleapis" + "" + "" + "" +
+        StringBuilder sb = new StringBuilder("https://maps.googleapis" + "" + "" + "" + "" +
                 ".com/maps/api/place/nearbysearch/json?");
         sb.append("location=" + mLatitude + "," + mLongitude);
         sb.append("&radius=5000");
@@ -443,47 +450,50 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
         // Executed after the complete execution of doInBackground() method
         @Override
         protected void onPostExecute(List<HashMap<String, String>> list) {
+            try {
+                Log.d("Map", "list size: " + list.size());
+                // Clears all the existing markers;
+                map.clear();
 
-            Log.d("Map", "list size: " + list.size());
-            // Clears all the existing markers;
-            map.clear();
+                for (int i = 0; i < list.size(); i++) {
 
-            for (int i = 0; i < list.size(); i++) {
+                    // Creating a marker
+                    MarkerOptions markerOptions = new MarkerOptions();
 
-                // Creating a marker
-                MarkerOptions markerOptions = new MarkerOptions();
-
-                // Getting a place from the places list
-                HashMap<String, String> hmPlace = list.get(i);
+                    // Getting a place from the places list
+                    HashMap<String, String> hmPlace = list.get(i);
 
 
-                // Getting latitude of the place
-                double lat = Double.parseDouble(hmPlace.get("lat"));
+                    // Getting latitude of the place
+                    double lat = Double.parseDouble(hmPlace.get("lat"));
 
-                // Getting longitude of the place
-                double lng = Double.parseDouble(hmPlace.get("lng"));
+                    // Getting longitude of the place
+                    double lng = Double.parseDouble(hmPlace.get("lng"));
 
-                // Getting name
-                String name = hmPlace.get("place_name");
+                    // Getting name
+                    String name = hmPlace.get("place_name");
 
-                Log.d("Map", "place: " + name);
+                    Log.d("Map", "place: " + name);
 
-                // Getting vicinity
-                String vicinity = hmPlace.get("vicinity");
+                    // Getting vicinity
+                    String vicinity = hmPlace.get("vicinity");
 
-                LatLng latLng = new LatLng(lat, lng);
+                    LatLng latLng = new LatLng(lat, lng);
 
-                // Setting the position for the marker
-                markerOptions.position(latLng);
+                    // Setting the position for the marker
+                    markerOptions.position(latLng);
 
-                markerOptions.title(name + " : " + vicinity);
+                    markerOptions.title(name + " : " + vicinity);
 
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
-                        .HUE_MAGENTA));
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker
+                            (BitmapDescriptorFactory.HUE_MAGENTA));
 
-                // Placing a marker on the touched position
-                Marker m = map.addMarker(markerOptions);
+                    // Placing a marker on the touched position
+                    Marker m = map.addMarker(markerOptions);
 
+                }
+            } catch (NullPointerException e) {
+                // ignore
             }
         }
     }

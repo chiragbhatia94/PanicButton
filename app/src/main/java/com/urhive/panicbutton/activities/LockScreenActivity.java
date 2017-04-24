@@ -6,11 +6,16 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.fragments.CarouselFragment;
+import com.urhive.panicbutton.helpers.UIHelper;
 
 public class LockScreenActivity extends AppCompatBase {
 
@@ -93,5 +98,25 @@ public class LockScreenActivity extends AppCompatBase {
             // carousel handled the back pressed task
             // do not call super
         }*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                UIHelper.startActivity(LockScreenActivity.this, SettingsActivity.class);
+                return true;
+            default:
+                Toast.makeText(this, "Yet to be developed", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

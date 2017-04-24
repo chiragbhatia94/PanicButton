@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.urhive.panicbutton.activities.SettingsActivity">
+
+    <include layout="@layout/toolbar_main"/>
+
+    <fragment
+        android:id="@+id/content_frame"
+        android:name="com.urhive.panicbutton.fragments.PreferenceFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="2dp"/>
+</android.support.design.widget.CoordinatorLayout>

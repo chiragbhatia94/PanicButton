@@ -181,5 +181,7 @@ public class MainActivity extends AppCompatBase {
     public void tempButton2(View view) {
         Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
         startActivity(intent);
+        /*Intent intent = new Intent(MainActivity.this, HardwareTriggerService.class);
+        startService(intent);*/
     }
 }
