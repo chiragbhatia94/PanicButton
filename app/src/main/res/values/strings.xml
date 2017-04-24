@@ -92,4 +92,5 @@
     <string name="sound">Sound</string>
     <string name="vibrate">Vibrate</string>
     <string name="instructions">Instructions</string>
+    <string name="setup_emergency_contacts">Setup Emergency Contacts</string>
 </resources>

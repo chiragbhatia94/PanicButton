@@ -16,16 +16,21 @@
     </PreferenceCategory>-->
 
     <PreferenceCategory android:title="@string/first_aid">
-        <Preference android:title="@string/instructions"/>
+        <Preference
+            android:key="instructionsBtn"
+            android:title="@string/instructions"/>
+        <Preference
+            android:key="setupICEContactsBtn"
+            android:title="@string/setup_emergency_contacts"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/about">
-        <Preference
+        <!--<Preference
             android:key="privacyPolicyBtn"
-            android:title="@string/privacyPolicy"/>
-        <Preference
+            android:title="@string/privacyPolicy"/>-->
+        <!--<Preference
             android:key="tosBtn"
-            android:title="@string/terms_of_service"/>
+            android:title="@string/terms_of_service"/>-->
         <Preference
             android:key="openSourceLibraryBtn"
             android:title="@string/openSourceLibraries"/>
@@ -35,9 +40,9 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/account">
-        <Preference
+        <!--<Preference
             android:key="linkedAccountsBtn"
-            android:title="@string/linkedAccounts"/>
+            android:title="@string/linkedAccounts"/>-->
         <Preference
             android:key="signOutBtn"
             android:title="@string/sign_out"/>

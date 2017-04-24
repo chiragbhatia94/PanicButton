@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.fragments.CarouselFragment;
@@ -114,7 +113,6 @@ public class LockScreenActivity extends AppCompatBase {
                 UIHelper.startActivity(LockScreenActivity.this, SettingsActivity.class);
                 return true;
             default:
-                Toast.makeText(this, "Yet to be developed", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

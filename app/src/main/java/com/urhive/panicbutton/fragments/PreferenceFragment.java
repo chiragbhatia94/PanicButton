@@ -25,6 +25,9 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 FirebaseAuth.getInstance().signOut();
+                // TODO: 24-04-2017
+                // if there is any service running stop it here
+
                 Log.i(TAG, "onPreferenceClick: User signed out!");
                 return true;
             }
