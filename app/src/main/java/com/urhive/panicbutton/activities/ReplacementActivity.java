@@ -1,8 +1,8 @@
 package com.urhive.panicbutton.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -43,10 +43,7 @@ public class ReplacementActivity extends AppCompatBase {
             setToolbar(getString(R.string.about));
 
             View aboutPage = new AboutPage(ReplacementActivity.this).isRTL(false).setImage(R
-                    .mipmap.ic_launcher).setDescription(getString(R.string.app_slogan)).addGroup
-                    ("Ur Hive").addEmail("urhive.com@gmail.com").addWebsite
-                    ("https://chiragbhatia94.github.io/PanicButton/").addPlayStore("com" + "" +
-                    "" + ".urhive.panicbutton").addGitHub("chiragbhatia94").create();
+                    .mipmap.ic_launcher).setDescription(getString(R.string.app_slogan)).addGroup(getString(R.string.app_company_name)).addEmail(getString(R.string.app_company_email)).addWebsite(getString(R.string.app_website)).addPlayStore(getString(R.string.app_playstore_link)).addGitHub(getString(R.string.developer_github_username)).create();
 
             FrameLayout fl = (FrameLayout) findViewById(R.id.content_frame);
             fl.addView(aboutPage);
@@ -63,15 +60,14 @@ public class ReplacementActivity extends AppCompatBase {
             View.OnClickListener onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
                     String email = ((TextView) v).getText().toString();
-                    Log.i(TAG, "onClick: ");
-                    intent.putExtra(Intent.EXTRA_EMAIL, email);
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                    intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",
+                            email, null));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string
+                            .regarding_panic_button));
+                    intent.putExtra(Intent.EXTRA_TEXT, "");
 
-                    startActivity(Intent.createChooser(intent, "Send Email"));
+                    startActivity(Intent.createChooser(intent, getString(R.string.send_email)));
                 }
             };
 
