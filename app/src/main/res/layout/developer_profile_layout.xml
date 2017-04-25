@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ayushi_chaturvedi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/logoColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medi_caps_institute_of_science_amp_technology_indore"/>
+
+            <TextView
+                android:id="@+id/emailAyushi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chaturvedi_ayushi28_gmail_com"
+                android:textColor="@color/linkColor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arshita_jain"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/logoColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medi_caps_institute_of_science_amp_technology_indore"/>
+
+            <TextView
+                android:id="@+id/emailArshita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arshitajain12_gmail_com"
+                android:textColor="@color/linkColor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chirag_bhatia"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/logoColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medi_caps_institute_of_science_amp_technology_indore"/>
+
+            <TextView
+                android:id="@+id/emailChirag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chiragbhatia94_gmail_com"
+                android:textColor="@color/linkColor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hardik_dixit"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/logoColor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medi_caps_institute_of_science_amp_technology_indore"/>
+
+            <TextView
+                android:id="@+id/emailHardik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hardikdixit187_gmail_com"
+                android:textColor="@color/linkColor"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

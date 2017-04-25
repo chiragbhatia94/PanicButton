@@ -20,7 +20,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.models.IceContact;
-import com.urhive.panicbutton.services.EmergencyFloatingService;
+import com.urhive.panicbutton.services.EmergencyActivityService;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -96,14 +96,14 @@ public class MainActivity extends AppCompatBase {
     public void startService(View view) {
         Log.i(TAG, "startService: " + "clicked on startService button");
 
-        Intent intent = new Intent(MainActivity.this, EmergencyFloatingService.class);
+        Intent intent = new Intent(MainActivity.this, EmergencyActivityService.class);
         startService(intent);
     }
 
     public void stopService(View view) {
         Log.i(TAG, "stopService: " + "clicked on stop service button");
 
-        Intent intent = new Intent(MainActivity.this, EmergencyFloatingService.class);
+        Intent intent = new Intent(MainActivity.this, EmergencyActivityService.class);
         stopService(intent);
 
         Toast.makeText(this, R.string.panic_button_stopped, Toast.LENGTH_SHORT).show();

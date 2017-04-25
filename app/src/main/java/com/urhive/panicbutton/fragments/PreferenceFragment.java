@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.urhive.panicbutton.R;
-import com.urhive.panicbutton.activities.OpenSourceLibrariesActivity;
+import com.urhive.panicbutton.activities.ReplacementActivity;
 import com.urhive.panicbutton.helpers.UIHelper;
 
 /**
@@ -38,6 +38,9 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         developersBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "developers");
+                UIHelper.startActivity(getActivity(), ReplacementActivity.class, bundle);
                 return true;
             }
         });
@@ -48,7 +51,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "about");
-                UIHelper.startActivity(getActivity(), OpenSourceLibrariesActivity.class, bundle);
+                UIHelper.startActivity(getActivity(), ReplacementActivity.class, bundle);
                 return true;
             }
         });
@@ -60,7 +63,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "openSourceLibrary");
-                UIHelper.startActivity(getActivity(), OpenSourceLibrariesActivity.class, bundle);
+                UIHelper.startActivity(getActivity(), ReplacementActivity.class, bundle);
                 return true;
             }
         });

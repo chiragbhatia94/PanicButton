@@ -3,6 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.urhive.panicbutton"
         minSdkVersion 16
@@ -13,6 +18,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -33,6 +39,7 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.9.5@aar') {
         transitive = true
     }
+    compile 'com.github.iammert:MaterialIntroView:1.6.0'
     compile 'com.github.medyo:android-about-page:1.2'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -50,6 +57,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     testCompile 'junit:junit:4.12'
 }

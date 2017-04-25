@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.urhive.panicbutton.models.Emergency;
+import com.urhive.panicbutton.models.Instruction;
 import com.urhive.panicbutton.models.Step;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class DBHelper {
 
     public static final String EMERGENCY = "emergency";
+    public static final String INSTRUCTION = "instruction";
     public static final String KEYWORDS = "keywords";
     public static final String STEPS = "steps";
     public static final String CONTACTS = "contacts";
@@ -28,6 +30,8 @@ public class DBHelper {
 
     public static void updateDB() {
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        // emergency
         diabetes();
         bleeding();
         electrocution();
@@ -38,9 +42,34 @@ public class DBHelper {
         poison();
         unresponsiveAndNotBreathing();
 
+        // instructions
+        cpr();
+
         Log.i(TAG, "updateDB: Database Updated!");
     }
 
+    // instructions
+    private static void cpr() {
+        String name = "CPR";
+        String photo = "cpr";
+
+        List<Step> steps = new ArrayList<>();
+        // sequence of the steps matters here
+        steps.add(new Step(Step.TEXT, "Make sure the area is safe."));
+        steps.add(new Step(Step.TEXT, "Turn the person on his back."));
+        steps.add(new Step("cprStep3", "Verify if the victim is breathing by listening, looking " +
+                "and feeling."));
+        steps.add(new Step("cprStep4", "If the victim is not breathing: do a chin lift and clear " +
+                "the airways if needed."));
+        steps.add(new Step(Step.TEXT, "Give chest compressions"));
+        // steps are not complete but you would have got the idea!
+
+        Instruction cpr = new Instruction(name, photo, steps);
+
+        mFirebaseDatabaseReference.child(DBHelper.INSTRUCTION).child(name).setValue(cpr.toMap());
+    }
+
+    // emergency
     private static void unresponsiveAndNotBreathing() {
         String name = "unresponsiveAndNotBreathing";
         String doctor_category = "Orthopediac";
@@ -63,7 +92,8 @@ public class DBHelper {
 
         List<Step> steps = new ArrayList<>();
         steps.add(new Step("unresponsiveAndNotBreathingStep1", "Check breathing by tilting their " +
-                "" + "" + "" + "" + "head backwards and looking and feeling for breaths."));
+                "" + "" + "" + "" + "" + "" + "" + "head backwards and looking and feeling for " +
+                "breaths" + "."));
         steps.add(new Step(Step.TEXT, "Call 108 as soon as possible, or get someone else to do "
                 + "it" + "."));
         steps.add(new Step("unresponsiveAndNotBreathingStep3", "Push firmly downwards in the " +
@@ -101,8 +131,8 @@ public class DBHelper {
         steps.add(new Step("poisonStep1", "Call 108 immediately"));
         steps.add(new Step("", "For Swallowed poison. Remove anything remaining in the person's "
                 + "mouth. If the suspected poison is a household cleaner or other chemical, read " +
-                "" + "" + "" + "" + "the container's label and follow instructions for accidental" +
-                " " + "poisoning" + "."));
+                "" + "" + "" + "" + "" + "" + "" + "the container's label and follow instructions" +
+                " for " + "" + "accidental" + " " + "poisoning" + "."));
         steps.add(new Step("", "For Poison on the skin. Remove any contaminated clothing using "
                 + "gloves. Rinse the skin for 15 to 20 minutes in a shower or with a hose."));
         steps.add(new Step("", "For Poison in the eye. Gently flush the eye with cool or " +
@@ -191,7 +221,7 @@ public class DBHelper {
 
         List<Step> steps = new ArrayList<>();
         steps.add(new Step("fractureStep1", "Stop any bleeding. Apply pressure to the wound with " +
-                "" + "" + "" + "" + "a sterile bandage or a clean cloth."));
+                "" + "" + "" + "" + "" + "" + "" + "a sterile bandage or a clean cloth."));
         steps.add(new Step("fractureStep2", "Immobilize the injured area."));
         steps.add(new Step("fractureStep3", "Apply ice packs to limit swelling and help relieve "
                 + "pain."));
@@ -230,12 +260,12 @@ public class DBHelper {
 
         List<Step> steps = new ArrayList<>();
         steps.add(new Step("faintStep1", "If you feel faint, Lie down or sit down. To reduce the " +
-                "" + "" + "" + "" + "chance of fainting again, don't get up too quickly."));
+                "" + "" + "" + "" + "" + "" + "" + "chance of fainting again, don't get up too quickly" + "."));
         steps.add(new Step("faintStep2", "Place your head between your knees if you sit down."));
         steps.add(new Step(Step.TEXT, "if someone else faints, Lay the person flat on his or her " +
-                "" + "" + "" + "" + "back."));
+                "" + "" + "" + "" + "" + "" + "" + "back."));
         steps.add(new Step("faintStep4", "Elevate the person's legs to restore blood flow to the " +
-                "" + "" + "" + "" + "brain."));
+                "" + "" + "" + "" + "" + "" + "" + "brain."));
         steps.add(new Step(Step.TEXT, "Loosen tight clothing."));
         steps.add(new Step(Step.TEXT, "Try to Revive the Person"));
         steps.add(new Step(Step.TEXT, "Shake the person vigorously, tap briskly, or yell."));
@@ -277,7 +307,7 @@ public class DBHelper {
                 + "to protect their head from injury."));
         steps.add(new Step("epilepsyStep5", "Don't put anything in their mouth."));
         steps.add(new Step("epilepsyStep6", "After the seizure, help the person to rest on their " +
-                "" + "" + "" + "" + "side with their head tilted back."));
+                "" + "" + "" + "" + "" + "" + "" + "side with their head tilted back."));
         steps.add(new Step(Step.TEXT, "If a convulsive (shaking) seizure doesn't stop after 5 " +
                 "minutes, call for an ambulance."));
         Emergency amputation = new Emergency(name, doctor_category, bodypart, keyword, photo,
@@ -349,9 +379,9 @@ public class DBHelper {
 
         List<Step> steps = new ArrayList<>();
         steps.add(new Step("bleedingStep1", "Apply direct pressure to the bleeding wound to stop " +
-                "" + "" + "" + "" + "bleeding."));
+                "" + "" + "" + "" + "" + "" + "" + "bleeding."));
         steps.add(new Step(Step.TEXT, "If the cut/wound is minor Gently clean with soap and warm " +
-                "" + "" + "" + "" + "water, Don’t use hydrogen peroxide or iodine."));
+                "" + "" + "" + "" + "" + "" + "" + "water, Don’t use hydrogen peroxide or iodine."));
         steps.add(new Step("bleedingStep3", "If the cut/wound is major Try to Raise the injured "
                 + "area above Heart Level."));
         steps.add(new Step("bleedingStep4", "If a foreign body is embedded in the wound, DO NOT "

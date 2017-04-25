@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Panic Button</string>
     <string name="app_slogan">Stay safe.</string>
+    <string name="about_us">Technology is advancing at the best of its pace. Every sector
+        of our lives is touched by its impact, but not the life itself. This is our little
+        step towards saving lives.\nPanic Button is an emergency first aid application that is
+        capable of providing the latest first-aid information, treatment, procedures and
+        instructions. Hence providing relief in times of disaster or emergencies. This is an
+        offline service that can be accessed from anywhere and by anyone.</string>
     <string name="loading">Loading&#8230;</string>
 
     <!-- OfflineActivity -->
@@ -93,4 +99,16 @@
     <string name="vibrate">Vibrate</string>
     <string name="instructions">Instructions</string>
     <string name="setup_emergency_contacts">Setup Emergency Contacts</string>
+
+    <!-- Developer's Details -->
+    <string name="medi_caps_institute_of_science_amp_technology_indore">Medi-Caps Institute of
+        Science &amp; Technology, Indore</string>
+    <string name="arshita_jain">Arshita Jain</string>
+    <string name="arshitajain12_gmail_com"><u>arshitajain12@gmail.com</u></string>
+    <string name="ayushi_chaturvedi">Ayushi Chaturvedi</string>
+    <string name="chaturvedi_ayushi28_gmail_com"><u>chaturvedi.ayushi28@gmail.com</u></string>
+    <string name="chirag_bhatia">Chirag Bhatia</string>
+    <string name="chiragbhatia94_gmail_com"><u>chiragbhatia94@gmail.com</u></string>
+    <string name="hardik_dixit">Hardik Dixit</string>
+    <string name="hardikdixit187_gmail_com"><u>hardikdixit187@gmail.com</u></string>
 </resources>

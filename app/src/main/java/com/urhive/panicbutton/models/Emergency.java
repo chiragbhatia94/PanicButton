@@ -102,10 +102,6 @@ public class Emergency {
         this.steps = steps;
     }
 
-    public void copyAllFrom(Emergency emergency) {
-
-    }
-
     // Map for JSON
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
