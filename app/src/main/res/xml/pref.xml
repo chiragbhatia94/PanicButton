@@ -32,6 +32,9 @@
             android:key="tosBtn"
             android:title="@string/terms_of_service"/>-->
         <Preference
+            android:key="aboutBtn"
+            android:title="@string/about"/>
+        <Preference
             android:key="openSourceLibraryBtn"
             android:title="@string/openSourceLibraries"/>
         <Preference
