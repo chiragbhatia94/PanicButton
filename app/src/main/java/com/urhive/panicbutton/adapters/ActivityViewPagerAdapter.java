@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.fragments.ContactsFragment;
 import com.urhive.panicbutton.fragments.FirstAidFragment;
 import com.urhive.panicbutton.fragments.InfoFragment;
+import com.urhive.panicbutton.fragments.InstructionFragment;
 import com.urhive.panicbutton.fragments.NearByHospitalFragment;
 
 /**
@@ -38,10 +40,12 @@ public class ActivityViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return FirstAidFragment.newInstance();
             case 1:
-                return InfoFragment.newInstance();
+                return InstructionFragment.newInstance();
             case 2:
-                return ContactsFragment.newInstance();
+                return InfoFragment.newInstance();
             case 3:
+                return ContactsFragment.newInstance();
+            case 4:
                 return NearByHospitalFragment.newInstance();
         }
         return null;
@@ -49,20 +53,22 @@ public class ActivityViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "First Aid";
+                return resources.getString(R.string.first_aid);
             case 1:
-                return "Info";
+                return resources.getString(R.string.instructions);
             case 2:
-                return "Contacts";
+                return resources.getString(R.string.info);
             case 3:
-                return "Near By Hospital";
+                return resources.getString(R.string.contacts);
+            case 4:
+                return resources.getString(R.string.nearby_hospital);
         }
         return super.getPageTitle(position);
     }

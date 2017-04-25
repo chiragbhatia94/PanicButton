@@ -3,6 +3,7 @@ package com.urhive.panicbutton.fragments;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.urhive.panicbutton.R;
@@ -21,15 +22,11 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref);
 
-        Preference signOutBtn = findPreference("signOutBtn");
-        signOutBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference instructionsBtn = findPreference("instructionsBtn");
+        instructionsBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FirebaseAuth.getInstance().signOut();
-                // TODO: 24-04-2017
-                // if there is any service running stop it here
-
-                Log.i(TAG, "onPreferenceClick: User signed out!");
+                Toast.makeText(getActivity(), "this is awesome", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -64,6 +61,19 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "openSourceLibrary");
                 UIHelper.startActivity(getActivity(), ReplacementActivity.class, bundle);
+                return true;
+            }
+        });
+
+        Preference signOutBtn = findPreference("signOutBtn");
+        signOutBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FirebaseAuth.getInstance().signOut();
+                // TODO: 24-04-2017
+                // if there is any service running stop it here
+
+                Log.i(TAG, "onPreferenceClick: User signed out!");
                 return true;
             }
         });

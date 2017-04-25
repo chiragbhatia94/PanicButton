@@ -24,17 +24,17 @@ import com.urhive.panicbutton.models.Step;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FirstAidStepsFragment#newInstance} factory method to
+ * Use the {@link InstructionStepsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FirstAidStepsFragment extends FragmentBase {
-    private static final String TAG = "FirstAidStepsFragment";
+public class InstructionStepsFragment extends FragmentBase {
+    private static final String TAG = "InstructionStepsFragment";
 
-    private static final String EMERGENCY_NAME = "emergencyName";
+    private static final String INSTRUCTION_NAME = "instructionName";
 
-    private String emergencyName;
+    private String instructionName;
 
-    public FirstAidStepsFragment() {
+    public InstructionStepsFragment() {
         // Required empty public constructor
     }
 
@@ -44,10 +44,10 @@ public class FirstAidStepsFragment extends FragmentBase {
      *
      * @return A new instance of fragment HiveFragment.
      */
-    public static FirstAidStepsFragment newInstance(String emergencyName) {
-        FirstAidStepsFragment fragment = new FirstAidStepsFragment();
+    public static InstructionStepsFragment newInstance(String instructionName) {
+        InstructionStepsFragment fragment = new InstructionStepsFragment();
         Bundle args = new Bundle();
-        args.putString(EMERGENCY_NAME, emergencyName);
+        args.putString(INSTRUCTION_NAME, instructionName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,7 +56,7 @@ public class FirstAidStepsFragment extends FragmentBase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            emergencyName = getArguments().getString(EMERGENCY_NAME);
+            instructionName = getArguments().getString(INSTRUCTION_NAME);
         }
     }
 
@@ -67,7 +67,7 @@ public class FirstAidStepsFragment extends FragmentBase {
         View view = inflater.inflate(R.layout.fragment_first_aid_steps, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.stepsRV);
         DatabaseReference stepsRef = FirebaseDatabase.getInstance().getReference().child(DBHelper
-                .EMERGENCY).child(emergencyName).child(DBHelper.STEPS);
+                .INSTRUCTION).child(instructionName).child(DBHelper.STEPS);
         FirebaseRecyclerAdapter<Step, StepsHolder> mAdapter = new FirebaseRecyclerAdapter<Step,
                 StepsHolder>(Step.class, R.layout.step_view_item, StepsHolder.class, stepsRef) {
             @Override

@@ -69,7 +69,6 @@
     <string name="back">Back</string>
     <string name="close">Close</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="emegency_image">Emegency Image</string>
     <string name="lorem_ipsum">Lorem Ipsum</string>
@@ -111,4 +110,15 @@
     <string name="chiragbhatia94_gmail_com"><u>chiragbhatia94@gmail.com</u></string>
     <string name="hardik_dixit">Hardik Dixit</string>
     <string name="hardikdixit187_gmail_com"><u>hardikdixit187@gmail.com</u></string>
+    <string name="app_company_name">Ur Hive</string>
+    <string name="app_company_email">urhive.com@gmail.com</string>
+    <string name="app_website">https://chiragbhatia94.github.io/PanicButton/</string>
+    <string name="app_playstore_link">com.urhive.panicbutton</string>
+    <string name="developer_github_username">chiragbhatia94</string>
+    <string name="regarding_panic_button">Regarding Panic Button</string>
+    <string name="send_email">Send Email</string>
+
+    <string name="info">Info</string>
+    <string name="contacts">Contacts</string>
+    <string name="nearby_hospital">Nearby Hospital</string>
 </resources>
