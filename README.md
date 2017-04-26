@@ -2,7 +2,10 @@
 
 ### Emergency First Aid and Panic Button
 
-An android application that will provide latest First-Aid, information, treatment procedures and instructions, hence providing relief in times of disaster or emergencies.
+**Technology is advancing at the best of its pace. Every sector of our lives is touched by its impact but not the lives itself. This is our little effort towards saving lives.**
+
+An android application that will provide latest First-Aid, information, treatment procedures and instructions, hence providing relief in times of disaster or emergencies. This is an offline service that can be accessed from anywhere and by anyone.
+
 <p align="center">
 <a href="https://play.google.com/store/apps/details?id=com.urhive.panicbutton"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" height="75px"/></a>
 </p>
@@ -45,6 +48,6 @@ Panic Button is an open source project. If you would like to contribute to the p
 [beta]: https://play.google.com/apps/testing/com.urhive.panicbutton
 
 ### Credits
-#### Website developed by: Arshita Jain
+### Website developed by: Arshita Jain
 ##### Assisted by: Ayushi Chaturvedi
 ##### Database maintained by: Hardik, Aman Dixit
