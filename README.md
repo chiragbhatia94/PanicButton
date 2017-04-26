@@ -13,6 +13,7 @@ An android application that will provide latest First-Aid, information, treatmen
 * Can be accessed from the LockScreen itself
 * Previously set Emergency-Contacts can be called
 * GPS enables you to search the nearby hospitals based on your then-current location
+
 ## Installing
 
 The easiest way to install Panic Button is through the [Google Play Store][playstore].
@@ -42,3 +43,8 @@ Panic Button is an open source project. If you would like to contribute to the p
 [poedit]: https://poeditor.com/join/project
 [playstore]: https://play.google.com/store/apps/details?id=com.urhive.panicbutton
 [beta]: https://play.google.com/apps/testing/com.urhive.panicbutton
+
+### Credits
+#### Website developed by: Arshita Jain
+##### Assisted by: Ayushi Chaturvedi
+##### Database maintained by: Hardik, Aman Dixit
