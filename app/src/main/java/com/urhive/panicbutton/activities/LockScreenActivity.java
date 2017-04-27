@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.fragments.CarouselFragment;
 import com.urhive.panicbutton.helpers.UIHelper;
+import com.urhive.panicbutton.services.EmergencyActivityService;
 
 public class LockScreenActivity extends AppCompatBase {
 
@@ -68,7 +69,7 @@ public class LockScreenActivity extends AppCompatBase {
     protected void onPause() {
         super.onPause();
         if (bundle == null) {
-            //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 1);
+            EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 1);
         }
     }
 
@@ -76,7 +77,7 @@ public class LockScreenActivity extends AppCompatBase {
     protected void onResume() {
         super.onResume();
         if (bundle == null) {
-            //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 2);
+            EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 2);
         }
     }
 

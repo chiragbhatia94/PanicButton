@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -33,7 +34,7 @@ import com.urhive.panicbutton.activities.LockScreenActivity;
 public class EmergencyActivityService extends Service {
     private static final String TAG = "EmergencyActivity";
     public static ImageView floatingWidgetIV;
-    //private LockScreenStateReceiver mLockScreenStateReceiver;
+    private LockScreenStateReceiver mLockScreenStateReceiver;
     private WindowManager windowManager;
     private RelativeLayout floatingWidget;
     private int x_init_cord, y_init_cord, x_init_margin, y_init_margin;
@@ -80,11 +81,11 @@ public class EmergencyActivityService extends Service {
                 (getApplicationContext());
         _enabled = prefs.getBoolean("isPanicButtonEnabled", true);
 
-        /*mLockScreenStateReceiver = new LockScreenStateReceiver();
+        mLockScreenStateReceiver = new LockScreenStateReceiver();
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
 
-        registerReceiver(mLockScreenStateReceiver, filter);*/
+        registerReceiver(mLockScreenStateReceiver, filter);
     }
 
     @SuppressLint("InflateParams")
@@ -119,7 +120,7 @@ public class EmergencyActivityService extends Service {
         params.y = 100;
 
         windowManager.addView(floatingWidget, params);
-        //checkLockScreenStateAndSetViews(getApplicationContext(), 0);
+        checkLockScreenStateAndSetViews(getApplicationContext(), 0);
 
         floatingWidget.setOnTouchListener(new View.OnTouchListener() {
             long time_start = 0, time_end = 0;
@@ -229,7 +230,7 @@ public class EmergencyActivityService extends Service {
     }
 
     private void closeService() {
-        // unregisterReceiver(mLockScreenStateReceiver);
+        unregisterReceiver(mLockScreenStateReceiver);
         if (floatingWidget != null) windowManager.removeView(floatingWidget);
         EmergencyActivityService.this.stopSelf();
     }
@@ -276,7 +277,7 @@ public class EmergencyActivityService extends Service {
     public class LockScreenStateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //checkLockScreenStateAndSetViews(context, 0);
+            checkLockScreenStateAndSetViews(context, 0);
         }
     }
 }
