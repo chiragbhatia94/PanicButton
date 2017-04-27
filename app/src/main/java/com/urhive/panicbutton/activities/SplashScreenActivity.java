@@ -24,6 +24,7 @@ public class SplashScreenActivity extends AppCompatBase {
     @Override
     protected void switchWhenUserSignsOut() {
         Log.d(TAG, "onAuthStateChanged: signed_out");
+        UIHelper.stopPanicButtonService(SplashScreenActivity.this);
         if (UIHelper.isOffline(SplashScreenActivity.this)) {
             // Log.i(TAG, "switchWhenUserSignsOut: moving to offline activity");
             if (!firstRun)
