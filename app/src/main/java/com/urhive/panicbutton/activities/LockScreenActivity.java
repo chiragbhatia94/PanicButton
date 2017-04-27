@@ -22,14 +22,21 @@ public class LockScreenActivity extends AppCompatBase {
     public static TabLayout tabLayout;
     private CoordinatorLayout mainCL;
     private CarouselFragment carouselFragment;
+    private String from;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        from = getIntent().getExtras().getString("from");
+        if (from == null) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
+
+        UIHelper.checkForFirstRun(LockScreenActivity.this);
+
         setContentView(R.layout.activity_lockscreen);
         setToolbar(getString(R.string.app_name));
 
@@ -61,17 +68,21 @@ public class LockScreenActivity extends AppCompatBase {
     @Override
     protected void onPause() {
         super.onPause();
-        //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 1);
+        if (from == null) {
+            //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 1);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 2);
+        if (from == null) {
+            //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 2);
+        }
     }
 
-    public void clickedwow(View view) {
-        Snackbar.make(mainCL, "This is awesome", Snackbar.LENGTH_SHORT).show();
+    public void callEmergency(View view) {
+        Snackbar.make(mainCL, R.string.lorem_ipsum, Snackbar.LENGTH_SHORT).show();
     }
 
     /**

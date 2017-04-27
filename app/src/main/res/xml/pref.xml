@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/first_aid">
-        <Preference
-            android:key="instructionsBtn"
-            android:title="@string/instructions"/>
-        <Preference
+        <!--<Preference
             android:key="setupICEContactsBtn"
             android:title="@string/setup_emergency_contacts"/>
+        <Preference
+            android:key="setupProfileBtn"
+            android:title="@string/emergency_profile"/>-->
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="showPanicBtnOnLockScreen"
+            android:title="@string/show_panic_button_on_lock_screen"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/about">

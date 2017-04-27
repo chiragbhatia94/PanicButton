@@ -1,8 +1,11 @@
 package com.urhive.panicbutton.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -22,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.helpers.UIHelper;
 
 /**
  * Created by Chirag Bhatia on 14-04-2017.
@@ -231,5 +235,21 @@ public class AppCompatBase extends AppCompatActivity {
                         .show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case UIHelper.FROM_INTRO:
+                    SharedPreferences.Editor editor = PreferenceManager
+                            .getDefaultSharedPreferences(getApplicationContext()).edit();
+                    editor.putBoolean("pref_first_run", false);
+                    editor.apply();
+                    return;
+            }
+        }
     }
 }

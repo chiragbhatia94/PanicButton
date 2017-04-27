@@ -8,15 +8,6 @@
     android:layout_height="match_parent"
     tools:context="com.urhive.panicbutton.activities.SignInActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/toolbar_main"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -28,14 +19,14 @@
         android:gravity="center"
         android:text="@string/sign_in"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -46,11 +37,10 @@
         android:text="@string/sign_in_to_let_us_gather_your_information_for_the_panic_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/google_button"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/google_button"
@@ -65,7 +55,6 @@
         android:background="@drawable/idp_button_background_google"
         android:drawableLeft="@drawable/ic_googleg_color_24dp"
         android:drawableStart="@drawable/ic_googleg_color_24dp"
-        android:onClick="signInWithGoogle"
         android:paddingEnd="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

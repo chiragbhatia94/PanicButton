@@ -36,22 +36,19 @@ public class GoogleProvider implements IdpProvider, GoogleApiClient.OnConnection
     public GoogleProvider(FragmentActivity activity) {
         mContext = activity.getBaseContext();
         // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions
-                .DEFAULT_SIGN_IN)
-                .requestIdToken(mContext.getString(R.string.default_web_client_id))
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(mContext.getString(R.string.default_web_client_id))
                 // dont use that i dont know why it is working in that way
                 //.requestIdToken(getString(R.string.web_client_id_google))
-                .requestEmail()
-                .build();
+                .requestEmail().build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
-                .enableAutoManage(activity /* FragmentActivity */, this /*
+        /*if (mGoogleApiClient != null) {*/
+        mGoogleApiClient = new GoogleApiClient.Builder(mContext).enableAutoManage(activity /*
+            FragmentActivity */, this /*
                 OnConnectionFailedListener
-                 */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+                 */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        /*}*/
     }
 
     public void disconnect() {

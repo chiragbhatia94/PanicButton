@@ -24,8 +24,11 @@
             android:value="@string/pb_google_api_key"/>
 
         <!-- activities -->
+        <activity
+            android:name=".activities.IntroActivity"
+            android:theme="@style/Theme.Intro">
+        </activity>
         <activity android:name=".activities.SplashScreenActivity">
-
             <!-- launcher activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

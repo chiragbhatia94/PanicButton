@@ -28,7 +28,10 @@ public class SignInActivity extends AppCompatBase implements OnCompleteListener<
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UIHelper.checkForFirstRun(SignInActivity.this);
         setContentView(R.layout.activity_sign_in);
+
+        setToolbarWithoutHomeAsUp(getString(R.string.sign_in));
 
         googleProvider = new GoogleProvider(SignInActivity.this);
 

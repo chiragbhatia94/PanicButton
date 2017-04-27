@@ -1,6 +1,7 @@
 package com.urhive.panicbutton.activities;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.urhive.panicbutton.R;
@@ -13,7 +14,9 @@ public class SplashScreenActivity extends AppCompatBase {
     @Override
     protected void switchWhenUserSignsIn() {
         Log.d(TAG, "switchWhenUserSignsIn: " + mFirebaseUser.getUid());
-        UIHelper.startActivityClearTop(SplashScreenActivity.this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("from", "SplashScreenActivity");
+        UIHelper.startActivityClearTop(SplashScreenActivity.this, LockScreenActivity.class, bundle);
     }
 
     @Override
@@ -31,5 +34,6 @@ public class SplashScreenActivity extends AppCompatBase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        PreferenceManager.setDefaultValues(this, R.xml.pref, false);
     }
 }

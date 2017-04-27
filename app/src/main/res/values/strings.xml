@@ -7,14 +7,30 @@
         capable of providing the latest first-aid information, treatment, procedures and
         instructions. Hence providing relief in times of disaster or emergencies. This is an
         offline service that can be accessed from anywhere and by anyone.</string>
+    <string name="app_introduction_pg1_title">Welcome to Panic Button</string>
+    <string name="app_introduction_pg1_desc">An initiative towards saving lives</string>
+
+    <string name="app_introduction_pg2_desc">Latest First-Aid information, treatment and
+        all other necessities</string>
+
+    <string name="app_introduction_pg3_desc">Find First-Aid for various medical issues</string>
+    <string name="app_introduction_pg4_desc">Previously set Emergency Contacts can be
+        accessed</string>
+    <string name="app_introduction_pg5_desc">Nearby hospitals can be reached in time</string>
+    <string name="app_introduction_pg6_desc">Access from Lock Screen itself</string>
+    <string name="app_introduction_permissions_title">Permit us to help you</string>
+    <string name="app_introduction_permissions_desc">This app requires to access your
+        Contacts, GPS, Location, etc</string>
     <string name="loading">Loading&#8230;</string>
 
     <!-- OfflineActivity -->
-    <string name="seems_like_ur_mobile_data_and_wifi_are_turned_off_please_turn_it_on">Seems like ur mobile data and wifi are turned off. Please turn it on.</string>
+    <string name="seems_like_ur_mobile_data_and_wifi_are_turned_off_please_turn_it_on">Seems like
+        ur mobile data and wifi are turned off. Please turn it on.</string>
     <string name="offline_image">Offline Image</string>
     <string name="u_r_currently_offline">U r currently Offline!</string>
     <string name="check_now">Check Now</string>
-    <string name="there_is_some_problem_with_your_internet_connection_try_again_later">There is some problem with your internet connection. Try again later.</string>
+    <string name="there_is_some_problem_with_your_internet_connection_try_again_later">There is
+        some problem with your internet connection. Try again later.</string>
 
     <!-- SignInActivity -->
     <string name="welcome">Welcome</string>
@@ -36,7 +52,12 @@
     <string name="panic_button_activated">Panic button activated.</string>
     <string name="panic_button_stopped">Panic button stopped.</string>
     <string name="sample_name">Lorem Ipsum</string>\
-    <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat nunc sem. Ut ornare est eget ultricies posuere. Nulla ut rhoncus purus. Phasellus id fringilla turpis. Aliquam quis eros orci. Vivamus lacus ligula, rutrum semper nulla in, aliquam semper quam. Proin id sem sed turpis dapibus aliquet bibendum vitae ipsum. Sed ultricies efficitur cursus. Aenean at nibh scelerisque erat consequat consequat eget eleifend dui.</string>
+    <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+        feugiat nunc sem. Ut ornare est eget ultricies posuere. Nulla ut rhoncus purus. Phasellus
+        id fringilla turpis. Aliquam quis eros orci. Vivamus lacus ligula, rutrum semper nulla
+        in, aliquam semper quam. Proin id sem sed turpis dapibus aliquet bibendum vitae ipsum.
+        Sed ultricies efficitur cursus. Aenean at nibh scelerisque erat consequat eget eleifend
+        dui.</string>
     <string name="sample_small_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="sample_ice_contact">Sample ICE Contact</string>
 
@@ -78,7 +99,8 @@
     <string name="please_enable_gps">Please enable GPS!</string>
     <string name="lat">Lat:</string>
     <string name="lng">Lng:</string>
-    <string name="last_known_location_not_available_with_the_system">Last known location not available with the system!</string>
+    <string name="last_known_location_not_available_with_the_system">Last known location not
+        available with the system!</string>
     <string name="address_not_found">Address not found!</string>
 
     <!-- Strings related to Settings -->
@@ -98,6 +120,7 @@
     <string name="vibrate">Vibrate</string>
     <string name="instructions">Instructions</string>
     <string name="setup_emergency_contacts">Setup Emergency Contacts</string>
+    <string name="emergency_profile">Setup Emergency Information</string>
 
     <!-- Developer's Details -->
     <string name="medi_caps_institute_of_science_amp_technology_indore">Medi-Caps Institute of
@@ -121,4 +144,17 @@
     <string name="info">Info</string>
     <string name="contacts">Contacts</string>
     <string name="nearby_hospital">Nearby Hospital</string>
+    <string name="screen_overlay_permission_required">Screen Overlay Permission Required</string>
+    <string
+        name="panic_button_requires_screen_overlay_permission_for_enabling_application_on_lockscreen">
+        Panic button requires screen overlay permission for enabling application on lockscreen!
+    </string>
+    <string name="draw_overlay_app_permission_title">Enable draw over other apps</string>
+    <string name="draw_overlay_app_permission_desc">Panic button requires this permission to enable the panic button over the lock screen.</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="sign_in_to_let_us_gather_your_information_for_the_panic_button">Sign in to let
+        us gather your information for the panic button.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="lets_start">Let\'s Start</string>
+    <string name="show_panic_button_on_lock_screen">Show panic button on lock screen</string>
 </resources>

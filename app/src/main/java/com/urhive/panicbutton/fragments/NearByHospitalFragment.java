@@ -348,7 +348,7 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
         double mLatitude = lastKnownLatLng.latitude;
         double mLongitude = lastKnownLatLng.longitude;
 
-        StringBuilder sb = new StringBuilder("https://maps.googleapis" + "" + "" + "" + "" +
+        StringBuilder sb = new StringBuilder("https://maps.googleapis" + "" + "" + "" + "" + "" +
                 ".com/maps/api/place/nearbysearch/json?");
         sb.append("location=" + mLatitude + "," + mLongitude);
         sb.append("&radius=5000");
