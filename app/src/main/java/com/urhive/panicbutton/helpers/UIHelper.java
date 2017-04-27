@@ -142,6 +142,11 @@ public class UIHelper {
         return false;
     }
 
+    public static void stopPanicButtonService(Context context) {
+        Intent intent = new Intent(context, EmergencyActivityService.class);
+        context.stopService(intent);
+    }
+
     public static void startPanicButtonService(Context context) {
         FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mFirebaseUser != null) {

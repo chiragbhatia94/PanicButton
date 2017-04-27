@@ -18,17 +18,18 @@ import com.urhive.panicbutton.helpers.UIHelper;
 
 public class LockScreenActivity extends AppCompatBase {
 
+    private static final String TAG = "LockScreenActivity";
     @SuppressLint("StaticFieldLeak")
     public static TabLayout tabLayout;
     private CoordinatorLayout mainCL;
     private CarouselFragment carouselFragment;
-    private String from;
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        from = getIntent().getExtras().getString("from");
-        if (from == null) {
+        bundle = getIntent().getExtras();
+        if (bundle == null) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -66,7 +67,7 @@ public class LockScreenActivity extends AppCompatBase {
     @Override
     protected void onPause() {
         super.onPause();
-        if (from == null) {
+        if (bundle == null) {
             //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 1);
         }
     }
@@ -74,7 +75,7 @@ public class LockScreenActivity extends AppCompatBase {
     @Override
     protected void onResume() {
         super.onResume();
-        if (from == null) {
+        if (bundle == null) {
             //EmergencyActivityService.checkLockScreenStateAndSetViews(getApplicationContext(), 2);
         }
     }

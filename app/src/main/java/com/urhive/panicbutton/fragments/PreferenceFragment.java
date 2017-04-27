@@ -2,6 +2,7 @@ package com.urhive.panicbutton.fragments;
 
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.TwoStatePreference;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,32 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             }
         });*/
 
+        /*final Preference showPanicBtnOnLockScreen = findPreference("showPanicBtnOnLockScreen");
+        showPanicBtnOnLockScreen.setOnPreferenceClickListener(new Preference
+        .OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                return true;
+            }
+        });*/
+
+        final TwoStatePreference showPanicButtonSwitch = (TwoStatePreference) findPreference
+                ("showPanicBtnOnLockScreen");
+        showPanicButtonSwitch.setOnPreferenceClickListener(new Preference
+                .OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                if (showPanicButtonSwitch.isChecked()) {
+                    Log.i(TAG, "onPreferenceClick: checked");
+                    UIHelper.startPanicButtonService(getActivity());
+                } else {
+                    Log.i(TAG, "onPreferenceClick: unchecked");
+                    UIHelper.stopPanicButtonService(getActivity());
+                }
+                return false;
+            }
+        });
         Preference developersBtn = findPreference("developersBtn");
         developersBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
