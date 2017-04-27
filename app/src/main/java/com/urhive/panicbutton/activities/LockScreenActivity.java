@@ -35,8 +35,6 @@ public class LockScreenActivity extends AppCompatBase {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
-        UIHelper.checkForFirstRun(LockScreenActivity.this);
-
         setContentView(R.layout.activity_lockscreen);
         setToolbar(getString(R.string.app_name));
 

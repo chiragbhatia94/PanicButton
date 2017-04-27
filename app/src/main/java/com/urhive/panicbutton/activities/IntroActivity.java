@@ -60,13 +60,11 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
                         .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS,
-                        Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW};
+                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.RECEIVE_BOOT_COMPLETED};
             } else {
                 permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
                         .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS,
-                        Manifest.permission.WAKE_LOCK};
+                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.RECEIVE_BOOT_COMPLETED};
             }
             permissionsSlide = new SimpleSlide.Builder().title(R.string
                     .app_introduction_permissions_title).description(R.string
@@ -130,6 +128,9 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
         int hasPermRC = pm.checkPermission(Manifest.permission.READ_CONTACTS, activity
                 .getPackageName());
         Log.i(TAG, "checkAllPermission Read Contacts: " + hasPermRC);
+        int hasPermBC = pm.checkPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED, activity
+                .getPackageName());
+        Log.i(TAG, "checkAllPermission Boot Completed: " + hasPermBC);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // use this only when the system is below M
             int hasPermSAW = pm.checkPermission(Manifest.permission.SYSTEM_ALERT_WINDOW, activity
@@ -158,4 +159,9 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
             }
         }
     }
+
+    /*@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }*/
 }

@@ -18,8 +18,12 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.urhive.panicbutton.R;
-import com.urhive.panicbutton.activities.IntroActivity;
+import com.urhive.panicbutton.services.EmergencyActivityService;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Chirag Bhatia on 15-03-2017.
@@ -126,14 +130,52 @@ public class UIHelper {
         }
     }
 
-    public static void checkForFirstRun(Activity activity) {
+    public static boolean checkForFirstRun(Activity activity) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 
         boolean firstRun = prefs.getBoolean("pref_first_run", true);
 
         // things to do on first run
         if (firstRun) {
-            UIHelper.startActivityForResult(activity, IntroActivity.class);
+            return true;
         }
+        return false;
+    }
+
+    public static void startPanicButtonService(Context context) {
+        FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFirebaseUser != null) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+            boolean showPanicBtnOnLockScreen = prefs.getBoolean("showPanicBtnOnLockScreen", true);
+
+            if (showPanicBtnOnLockScreen) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(context)) {
+                        showOverlayNotification();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(),
+                                EmergencyActivityService.class);
+                        context.startService(intent);
+                    }
+                } else {
+                    PackageManager pm = context.getPackageManager();
+                    int hasPerm = pm.checkPermission(Manifest.permission.SYSTEM_ALERT_WINDOW,
+                            context.getPackageName());
+                    if (hasPerm != PackageManager.PERMISSION_GRANTED) {
+                        // do stuff
+                        showOverlayNotification();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(),
+                                EmergencyActivityService.class);
+                        context.startService(intent);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void showOverlayNotification() {
+        // TODO: 27-04-2017 later
     }
 }

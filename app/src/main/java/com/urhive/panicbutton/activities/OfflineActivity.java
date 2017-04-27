@@ -17,7 +17,6 @@ public class OfflineActivity extends AppCompatBase {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UIHelper.checkForFirstRun(OfflineActivity.this);
         setContentView(R.layout.activity_offline);
 
         final Handler handler = new Handler();

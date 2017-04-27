@@ -241,6 +241,13 @@ public class AppCompatBase extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == UIHelper.FROM_INTRO) {
+            if (resultCode != RESULT_OK) {
+                finish();
+            }
+        }
+
+
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case UIHelper.FROM_INTRO:
@@ -248,6 +255,7 @@ public class AppCompatBase extends AppCompatActivity {
                             .getDefaultSharedPreferences(getApplicationContext()).edit();
                     editor.putBoolean("pref_first_run", false);
                     editor.apply();
+                    recreate();
                     return;
             }
         }
