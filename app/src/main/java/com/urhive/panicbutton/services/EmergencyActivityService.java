@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.activities.LockScreenActivity;
@@ -207,7 +206,8 @@ public class EmergencyActivityService extends Service {
             }
         });
 
-        Toast.makeText(this, "Panic button activated.", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Panic button activated.", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "handleStart: Panic button activated.");
     }
 
     @Override
@@ -273,6 +273,14 @@ public class EmergencyActivityService extends Service {
         return (int) Math.ceil(25 * getApplicationContext().getResources().getDisplayMetrics()
                 .density);
     }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        // TODO: 27-04-2017 restart this service but you need to check if the conditions are valid
+        super.onTaskRemoved(rootIntent);
+    }
+
+    // added 27.04.2017
 
     public class LockScreenStateReceiver extends BroadcastReceiver {
         @Override

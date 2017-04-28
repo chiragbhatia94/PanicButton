@@ -25,6 +25,11 @@ public class DBHelper {
     public static final String STEPS = "steps";
     public static final String CONTACTS = "contacts";
 
+    public static final String AGE_GENDER = "age_gender";
+    public static final String ADDRESS = "address";
+    public static final String BLOOD_GROUP = "blood_group";
+    public static final String MEDICAL_NOTES = "medical_notes";
+    public static final String USERS = "users";
     private static final String TAG = "DBHelper";
     private static DatabaseReference mFirebaseDatabaseReference;
 

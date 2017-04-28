@@ -7,9 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.activities.EditContactsActivity;
 import com.urhive.panicbutton.adapters.ContactsRecyclerViewAdapter;
+import com.urhive.panicbutton.helpers.UIHelper;
 import com.urhive.panicbutton.models.IceContact;
 
 import java.util.ArrayList;
@@ -58,8 +61,15 @@ public class ContactsFragment extends FragmentBase {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.contactsRecyclerView);
 
+        TextView editTV = (TextView) view.findViewById(R.id.editTV);
+        editTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.startActivity(getActivity(), EditContactsActivity.class);
+            }
+        });
+
         ArrayList<IceContact> contactsList = new ArrayList<>();
-        contactsList.add(new IceContact(1, null, "Chirag Bhatia", "9893604590"));
         contactsList.add(new IceContact(2, null, "Mahesh Bhatia", "9827562730"));
         contactsList.add(new IceContact(3, null, "Yash Bhatia", "9039563022"));
 

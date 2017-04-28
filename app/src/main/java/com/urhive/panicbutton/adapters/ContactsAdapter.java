@@ -22,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactsAdapter extends BaseAdapter {
 
+    private static final String TAG = "ContactsAdapter";
     Context context;
     ArrayList<IceContact> contacts;
 

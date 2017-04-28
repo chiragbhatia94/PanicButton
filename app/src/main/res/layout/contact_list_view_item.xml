@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contactRL"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
         android:layout_marginRight="27dp"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/contact_dp"
-        android:src="@drawable/ic_person_black_24dp"/>
+        app:srcCompat="@drawable/ic_person_black_24dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,4 +48,21 @@
             android:text="@string/sample_name"
             android:textSize="15sp"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/deleteContactIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/delete_contact"
+        android:src="@drawable/places_ic_clear"
+        android:tint="@color/black"
+        android:visibility="gone"/>
+
 </RelativeLayout>

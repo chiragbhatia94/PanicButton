@@ -17,9 +17,9 @@
             android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:src="@drawable/ic_person_black_24dp"
             app:civ_border_color="@color/logoColor"
-            app:civ_border_width="2dp"/>
+            app:civ_border_width="2dp"
+            app:srcCompat="@drawable/ic_person_black_24dp"/>
 
         <TextView
             android:id="@+id/nameTV"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="@string/sample_name"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TextView
@@ -36,23 +36,49 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
-            android:text="@string/sample_age_gender"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="@string/details"
-            android:textAppearance="@android:style/TextAppearance.Large"/>
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/details"
+                android:textAppearance="@android:style/TextAppearance.Large"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/editTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_create_black_24dp"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/ic_create_black_24dp"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/edit"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/homeRL"
+            android:id="@+id/addressRL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
@@ -73,7 +99,7 @@
                 android:layout_marginRight="27dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/home_icon"
-                android:src="@drawable/ic_home_black_24dp"/>
+                app:srcCompat="@drawable/ic_home_black_24dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,29 +114,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/setAddressTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sample_address"
+                    android:text="@string/unknown"
                     android:textSize="15sp"/>
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/map_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="27dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="27dp"
-                android:layout_marginStart="16dp"
-                android:contentDescription="@string/navigate_home"
-                android:src="@drawable/ic_navigation_black_24dp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -150,13 +163,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/blood_group"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/blood_group_text"
+                    android:id="@+id/bloodGroupTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sample_blood_group"
+                    android:text="@string/unknown"
                     android:textSize="15sp"/>
             </LinearLayout>
         </RelativeLayout>
@@ -183,7 +197,7 @@
                 android:layout_marginRight="27dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/medical_notes_icon"
-                android:src="@drawable/ic_assignment_black_24dp"/>
+                app:srcCompat="@drawable/ic_assignment_black_24dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -198,7 +212,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/medical_notes"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/setMedicalNotesTV"

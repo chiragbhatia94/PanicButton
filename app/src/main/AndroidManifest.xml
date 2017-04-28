@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <!-- <uses-permission android:name="android.permission.CALL_PRIVILEGED"/> -->
     <application
@@ -30,6 +31,7 @@
             android:theme="@style/Theme.Intro">
         </activity>
         <activity android:name=".activities.SplashScreenActivity">
+
             <!-- launcher activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -52,7 +54,6 @@
             android:name=".activities.LockScreenActivity"
             android:theme="@style/PanicTheme.DarkActionBar">
         </activity>
-
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings">
@@ -67,12 +68,17 @@
             </intent-filter>
         </receiver>
 
-
-        <!--<service
+        <!--
+        <service
             android:name=".services.HardwareTriggerService"
             android:enabled="true"
             android:exported="true">
-        </service>-->
+        </service>
+        -->
+        <activity android:name=".activities.EditContactsActivity">
+        </activity>
+        <activity android:name=".activities.EditInfoActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.helpers.UIHelper;
 import com.urhive.panicbutton.models.IceContact;
 
 import java.util.List;
@@ -42,11 +45,17 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 
     @Override
     public void onBindViewHolder(final ContactsHolder holder, final int position) {
-        IceContact contact = contacts.get(holder.getLayoutPosition());
+        final int correctedPosition = holder.getLayoutPosition();
+        IceContact contact = contacts.get(correctedPosition);
         Log.i(TAG, "onBindViewHolder: " + contact.toString());
         holder.contactName.setText(contact.getContactName());
         holder.contactNumberTV.setText(contact.getContactNumber());
-
+        holder.contactRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.makeCall(context, contacts.get(correctedPosition).getContactNumber());
+            }
+        });
     }
 
     @Override
@@ -55,15 +64,19 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     }
 
     public class ContactsHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout contactRL;
         public CircleImageView contactDPIV;
         public TextView contactName;
         public TextView contactNumberTV;
+        public ImageView deleteContactIV;
 
         public ContactsHolder(View itemView) {
             super(itemView);
+            this.contactRL = (RelativeLayout) itemView.findViewById(R.id.contactRL);
             this.contactDPIV = (CircleImageView) itemView.findViewById(R.id.contactDPIV);
             this.contactName = (TextView) itemView.findViewById(R.id.contactName);
             this.contactNumberTV = (TextView) itemView.findViewById(R.id.contactNumberTV);
+            this.deleteContactIV = (ImageView) itemView.findViewById(R.id.deleteContactIV);
         }
     }
 }

@@ -17,6 +17,8 @@ import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
 import com.urhive.panicbutton.R;
 
+import static android.os.Build.VERSION_CODES.M;
+
 /**
  * Created by Chirag Bhatia on 25-04-2017.
  */
@@ -57,14 +59,12 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
         final Slide permissionsSlide;
         if (checkAllPermission(this)) {
             String[] permissions;
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= M) {
                 permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
-                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.RECEIVE_BOOT_COMPLETED};
+                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
             } else {
                 permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
-                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.RECEIVE_BOOT_COMPLETED};
+                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
             }
             permissionsSlide = new SimpleSlide.Builder().title(R.string
                     .app_introduction_permissions_title).description(R.string
@@ -74,14 +74,14 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
             addSlide(permissionsSlide);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= M) {
             if (!Settings.canDrawOverlays(this)) {
                 addSlide(new SimpleSlide.Builder().title(R.string
                         .draw_overlay_app_permission_title).description(R.string
                         .draw_overlay_app_permission_desc).image(R.mipmap.ic_launcher).background
                         (R.color.green_300).backgroundDark(R.color.green_600).scrollable(true)
                         .buttonCtaLabel(R.string.grant_permission).buttonCtaClickListener(new View.OnClickListener() {
-                    @TargetApi(Build.VERSION_CODES.M)
+                            @TargetApi(M)
                     @Override
                     public void onClick(View v) {
                         /* if not construct intent to request permission */
@@ -131,7 +131,7 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
         int hasPermBC = pm.checkPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED, activity
                 .getPackageName());
         Log.i(TAG, "checkAllPermission Boot Completed: " + hasPermBC);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < M) {
             // use this only when the system is below M
             int hasPermSAW = pm.checkPermission(Manifest.permission.SYSTEM_ALERT_WINDOW, activity
                     .getPackageName());

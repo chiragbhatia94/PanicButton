@@ -114,8 +114,7 @@ public class UIHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(activity)) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(activity).setTitle(R.string
-                        .screen_overlay_permission_required).setMessage(R.string
-                        .panic_button_requires_screen_overlay_permission_for_enabling_application_on_lockscreen).setPositiveButton("Grant Permission", new DialogInterface.OnClickListener() {
+                        .screen_overlay_permission_required).setMessage(R.string.panic_button_requires_screen_overlay_permission_for_enabling_application_on_lock_screen).setPositiveButton("Grant Permission", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         /** if not construct intent to request permission */
