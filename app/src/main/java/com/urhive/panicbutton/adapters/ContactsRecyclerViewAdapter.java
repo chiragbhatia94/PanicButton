@@ -1,8 +1,8 @@
 package com.urhive.panicbutton.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.urhive.panicbutton.R;
+import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.helpers.UIHelper;
 import com.urhive.panicbutton.models.IceContact;
 
@@ -29,10 +30,18 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 
     private Context context;
     private List<IceContact> contacts;
+    private String mode;
 
     public ContactsRecyclerViewAdapter(Context context, List<IceContact> contacts) {
         this.context = context;
         this.contacts = contacts;
+        this.mode = "NORMAL";
+    }
+
+    public ContactsRecyclerViewAdapter(Context context, List<IceContact> contacts, String mode) {
+        this.context = context;
+        this.contacts = contacts;
+        this.mode = mode;
     }
 
     @Override
@@ -46,16 +55,29 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     @Override
     public void onBindViewHolder(final ContactsHolder holder, final int position) {
         final int correctedPosition = holder.getLayoutPosition();
-        IceContact contact = contacts.get(correctedPosition);
-        Log.i(TAG, "onBindViewHolder: " + contact.toString());
+        final IceContact contact = contacts.get(correctedPosition);
         holder.contactName.setText(contact.getContactName());
         holder.contactNumberTV.setText(contact.getContactNumber());
-        holder.contactRL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UIHelper.makeCall(context, contacts.get(correctedPosition).getContactNumber());
-            }
-        });
+        if (mode.equals("NORMAL")) {
+            holder.contactRL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UIHelper.makeCall(context, contacts.get(correctedPosition).getContactNumber());
+                }
+            });
+        } else {
+            holder.deleteContactIV.setVisibility(View.VISIBLE);
+            holder.deleteContactIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    contacts.remove(correctedPosition);
+                    DBHelper.updateContactsToPreferences(context, contacts);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+        if (contact.getImageURI() != null)
+            holder.contactDPIV.setImageURI(Uri.parse(contact.getImageURI()));
     }
 
     @Override

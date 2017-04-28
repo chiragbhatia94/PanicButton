@@ -179,6 +179,7 @@
         .</string>
     <string name="image_uploaded">Image uploaded</string>
     <string name="unspecified">Unspecified</string>
+    <string name="add_contact">Add contact</string>
 
     <string-array name="blood_groups">
         <item>@string/unspecified</item>

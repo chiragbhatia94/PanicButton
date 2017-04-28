@@ -181,10 +181,12 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
                 List<Address> list = geocoder.getFromLocation(lat, lng, 1);
                 if (list != null) {
                     try {
-                        String address = list.get(0).getAddressLine(0) + " " + list.get(0)
-                                .getAddressLine(1) + "\n" + list.get(0).getAddressLine(2) + "\n"
-                                + list.get(0).getAddressLine(3);
-                        addressTV.setText(address);
+                        if (list.get(0) != null) {
+                            String address = list.get(0).getAddressLine(0) + " " + list.get(0)
+                                    .getAddressLine(1) + "\n" + list.get(0).getAddressLine(2) +
+                                    "\n" + list.get(0).getAddressLine(3);
+                            addressTV.setText(address);
+                        }
                         return;
                     } catch (ArrayIndexOutOfBoundsException e) {
                         // do not do anything

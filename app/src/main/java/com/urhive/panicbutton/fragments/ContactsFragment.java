@@ -12,10 +12,11 @@ import android.widget.TextView;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.activities.EditContactsActivity;
 import com.urhive.panicbutton.adapters.ContactsRecyclerViewAdapter;
+import com.urhive.panicbutton.helpers.DBHelper;
 import com.urhive.panicbutton.helpers.UIHelper;
 import com.urhive.panicbutton.models.IceContact;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -69,13 +70,18 @@ public class ContactsFragment extends FragmentBase {
             }
         });
 
-        ArrayList<IceContact> contactsList = new ArrayList<>();
-        contactsList.add(new IceContact(2, null, "Mahesh Bhatia", "9827562730"));
-        contactsList.add(new IceContact(3, null, "Yash Bhatia", "9039563022"));
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ContactsRecyclerViewAdapter(getContext(), contactsList));
-
         return view;
+    }
+
+    void updateRecyclerView() {
+        List<IceContact> contactsList = DBHelper.getContactsList(getActivity());
+        recyclerView.setAdapter(new ContactsRecyclerViewAdapter(getContext(), contactsList));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRecyclerView();
     }
 }

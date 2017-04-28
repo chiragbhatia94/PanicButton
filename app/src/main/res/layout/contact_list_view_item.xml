@@ -61,6 +61,7 @@
         android:layout_marginRight="27dp"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/delete_contact"
+        android:padding="4dp"
         android:src="@drawable/places_ic_clear"
         android:tint="@color/black"
         android:visibility="gone"/>
