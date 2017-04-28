@@ -30,8 +30,7 @@
             android:layout_height="wrap_content"
             android:background="@color/logoColor"
             android:theme="@style/PanicTheme.PopupOverlay"
-            app:tabGravity="fill"
-            app:tabMode="fixed"/>
+            app:tabMode="scrollable"/>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
