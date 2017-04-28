@@ -3,7 +3,6 @@ package com.urhive.panicbutton.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
@@ -82,7 +81,8 @@ public class LockScreenActivity extends AppCompatBase {
     }
 
     public void callEmergency(View view) {
-        Snackbar.make(mainCL, R.string.lorem_ipsum, Snackbar.LENGTH_SHORT).show();
+        // Snackbar.make(mainCL, R.string.lorem_ipsum, Snackbar.LENGTH_SHORT).show();
+        UIHelper.makeCall(LockScreenActivity.this, "112");
     }
 
     /**
