@@ -1,17 +1,13 @@
 package com.urhive.panicbutton.activities;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
@@ -27,6 +23,7 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
     private static final String TAG = "IntroActivity";
 
     private static final int REQUEST_CODE_DRAW_OVERLAY = 1234;
+    private static Slide overSlide;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,11 +57,9 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
         if (checkAllPermission(this)) {
             String[] permissions;
             if (Build.VERSION.SDK_INT <= M) {
-                permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
-                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
+                permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
             } else {
-                permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission
-                        .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
+                permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.WAKE_LOCK, Manifest.permission.RECEIVE_BOOT_COMPLETED, Manifest.permission.READ_EXTERNAL_STORAGE};
             }
             permissionsSlide = new SimpleSlide.Builder().title(R.string
                     .app_introduction_permissions_title).description(R.string
@@ -74,25 +69,29 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
             addSlide(permissionsSlide);
         }
 
-        if (Build.VERSION.SDK_INT >= M) {
+        /*if (Build.VERSION.SDK_INT >= M) {
             if (!Settings.canDrawOverlays(this)) {
-                addSlide(new SimpleSlide.Builder().title(R.string
+                Log.i(TAG, "onCreate: can draw overlay now");
+                overSlide = new SimpleSlide.Builder().title(R.string
                         .draw_overlay_app_permission_title).description(R.string
                         .draw_overlay_app_permission_desc).image(R.mipmap.ic_launcher).background
                         (R.color.green_300).backgroundDark(R.color.green_600).scrollable(true)
                         .buttonCtaLabel(R.string.grant_permission).buttonCtaClickListener(new View.OnClickListener() {
-                            @TargetApi(M)
+                    @TargetApi(M)
                     @Override
                     public void onClick(View v) {
-                        /* if not construct intent to request permission */
+                        *//* if not construct intent to request permission *//*
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri
                                 .parse("package:" + getPackageName()));
-                        /* request permission via start activity for result */
+                        *//* request permission via start activity for result *//*
                         startActivityForResult(intent, REQUEST_CODE_DRAW_OVERLAY);
                     }
-                }).build());
+                }).build();
+                addSlide(overSlide);
+            } else {
+                Log.i(TAG, "onCreate: cannot draw overlay");
             }
-        }
+        }*/
 
         addSlide(new SimpleSlide.Builder().description(R.string.lets_start).image(R.mipmap
                 .ic_launcher_round).background(R.color.teal_300).backgroundDark(R.color.teal_600)
@@ -152,12 +151,18 @@ public class IntroActivity extends com.heinrichreimersoftware.materialintro.app.
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_DRAW_OVERLAY:
-                    nextSlide();
+                    /*removeSlide(overSlide);
+                    goToLastSlide();*/
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /*@Override
