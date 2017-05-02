@@ -6,7 +6,7 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
-import triggers.HardwareTriggerReceiver;
+import com.urhive.panicbutton.triggers.HardwareTriggerReceiver;
 
 public class HardwareTriggerService extends Service {
     private HardwareTriggerReceiver hardwareTriggerReceiver;

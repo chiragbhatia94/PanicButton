@@ -1,4 +1,4 @@
-package triggers;
+package com.urhive.panicbutton.triggers;
 
 import android.util.EventLog;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package triggers;
+package com.urhive.panicbutton.triggers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
