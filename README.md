@@ -52,7 +52,7 @@ Panic Button is an open source project. If you would like to contribute to the p
 ##### Assisted by: Ayushi Chaturvedi
 ##### Database maintained by: Hardik, Aman Dixit
 
-# License
+### License
 MIT License
 
 Copyright (c) 2017 Chirag Bhatia <chiragbhatia94@gmail.com>
