@@ -1,4 +1,4 @@
 <resources>
     <string name="pb_google_api_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyCLNBpiRmvGNoiE94jYQ9B_acpVCcFmXEQ</string>
+        <!-- Put your own api pin here --></string>
 </resources>
