@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.urhive.panicbutton.R;
 import com.urhive.panicbutton.services.EmergencyActivityService;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 /**
  * Created by Chirag Bhatia on 15-03-2017.
  */
@@ -158,7 +156,7 @@ public class UIHelper {
                     if (!Settings.canDrawOverlays(context)) {
                         showOverlayNotification();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(),
+                        Intent intent = new Intent(context,
                                 EmergencyActivityService.class);
                         context.startService(intent);
                     }
@@ -170,7 +168,7 @@ public class UIHelper {
                         // do stuff
                         showOverlayNotification();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(),
+                        Intent intent = new Intent(context,
                                 EmergencyActivityService.class);
                         context.startService(intent);
                     }

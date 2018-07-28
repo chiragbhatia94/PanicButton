@@ -11,13 +11,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.urhive.panicbutton.models.IdpResponse;
 
-import static com.google.android.gms.internal.zzt.TAG;
-
 /**
  * Created by Chirag Bhatia on 20-03-2017.
  */
 
 public class AuthHelper {
+    private static final String TAG = "AuthHelper";
+
     @Nullable
     public static AuthCredential getAuthCredential(IdpResponse idpResponse) {
         switch (idpResponse.getProviderType()) {

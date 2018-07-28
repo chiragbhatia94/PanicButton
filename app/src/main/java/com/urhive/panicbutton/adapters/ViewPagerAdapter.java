@@ -126,7 +126,6 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        // TODO Auto-generated method stub
         ((ViewPager) container).removeView((View) object);
     }
 

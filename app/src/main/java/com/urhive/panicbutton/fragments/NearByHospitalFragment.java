@@ -51,8 +51,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NearByHospitalFragment#newInstance} factory method to
@@ -151,7 +149,7 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest
                 .permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
@@ -177,7 +175,7 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
             latlngTV.setText(getString(R.string.lat) + " " + lat + " " + "&" + " " + getString(R
                     .string.lng) + " " + lng);
             if (!UIHelper.isOffline(getContext())) {
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                 List<Address> list = geocoder.getFromLocation(lat, lng, 1);
                 if (list != null) {
                     try {
@@ -283,7 +281,7 @@ public class NearByHospitalFragment extends FragmentBase implements OnMapReadyCa
     }
 
     protected void startLocationUpdates() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest
                 .permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
